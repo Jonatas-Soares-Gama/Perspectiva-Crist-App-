@@ -5,9 +5,10 @@
 //  Created by Jonatas Gama on 25/02/23.
 //
 
-import Foundation
-import UIKit
 import AVFoundation
+import UIKit
+import AlamofireImage
+
 
 protocol RadioProtocol: AnyObject {
     func actionPlayButton()
@@ -22,6 +23,7 @@ class RadioScreen: UIView {
     }
     
     var audioPlayer: AVPlayer?
+    let audioSession = AVAudioSession.sharedInstance()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -79,11 +81,29 @@ class RadioScreen: UIView {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
-        button.tintColor = .blue
+        button.tintColor = UIColor(red: 254/255, green: 78/255, blue: 2/255, alpha: 1.0)
         button.addTarget(self, action: #selector(self.ButtonPauseButton), for: .touchUpInside)
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 80), forImageIn: .normal)
         button.isHidden = true
         return button
+    }()
+    
+    lazy var titlePlayLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 18)
+        label.textColor = .white
+        label.isHidden = true
+        return label
+    }()
+    
+    lazy var artistPlayLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 18)
+        label.textColor = .white
+        label.isHidden = true
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -95,6 +115,8 @@ class RadioScreen: UIView {
         addSubview(liveImage)
         addSubview(playButton)
         addSubview(pauseButton)
+        addSubview(titlePlayLabel)
+        addSubview(artistPlayLabel)
         setupConstrainst()
     }
     
@@ -115,8 +137,17 @@ class RadioScreen: UIView {
             guard let musicURL = URL(string: data.station?.listenURL ?? "") else { return }
             self.audioPlayer = AVPlayer(url: musicURL)
             self.audioPlayer?.play()
+            let audioSession = AVAudioSession.sharedInstance()
+            try? audioSession.setCategory(.playback)
+            try? audioSession.setActive(true)
             self.playButton.isHidden = true
             self.pauseButton.isHidden = false
+            guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
+            self.radioImage.af.setImage(withURL: imgURL)
+            self.titlePlayLabel.text = data.nowPlaying?.song?.title
+            self.artistPlayLabel.text = data.nowPlaying?.song?.artist
+            self.artistPlayLabel.isHidden = false
+            self.titlePlayLabel.isHidden = false
         }
     }
     
@@ -125,6 +156,9 @@ class RadioScreen: UIView {
             self.audioPlayer?.pause()
             self.pauseButton.isHidden = true
             self.playButton.isHidden = false
+            self.radioImage.image = UIImage(named: "radioAzul2")
+            self.artistPlayLabel.isHidden = true
+            self.titlePlayLabel.isHidden = true
         }
     }
     
@@ -149,13 +183,18 @@ class RadioScreen: UIView {
             radioImage.heightAnchor.constraint(equalToConstant: 270),
             radioImage.widthAnchor.constraint(equalToConstant: 270),
             
-            playButton.topAnchor.constraint(equalTo: radioImage.bottomAnchor,constant: 80),
+            titlePlayLabel.topAnchor.constraint(equalTo: radioImage.bottomAnchor,constant: 50),
+            titlePlayLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            playButton.topAnchor.constraint(equalTo: radioImage.bottomAnchor,constant:80),
             playButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            artistPlayLabel.topAnchor.constraint(equalTo: playButton.bottomAnchor,constant: 20),
+            artistPlayLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             pauseButton.topAnchor.constraint(equalTo: radioImage.bottomAnchor,constant: 80),
             pauseButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
         ])
     }
-    
 }
