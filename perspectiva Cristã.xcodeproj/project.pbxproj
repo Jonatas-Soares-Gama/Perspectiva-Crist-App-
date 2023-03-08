@@ -10,13 +10,18 @@
 		1B42CE8F29B4375D001B9346 /* HomeRadioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B42CE8E29B4375D001B9346 /* HomeRadioController.swift */; };
 		1B42CE9129B437DB001B9346 /* PodcastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B42CE9029B437DB001B9346 /* PodcastController.swift */; };
 		1B476E9929B456F9009C4B24 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1B476E9829B456F9009C4B24 /* AlamofireImage */; };
+		F839E59529B6CBB60085AB38 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59429B6CBB60085AB38 /* File.swift */; };
+		F839E59729B81D530085AB38 /* FavoritController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59629B81D530085AB38 /* FavoritController.swift */; };
+		F839E59929B81D990085AB38 /* CultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59829B81D990085AB38 /* CultsController.swift */; };
+		F839E59B29B822340085AB38 /* FavoritScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59A29B822340085AB38 /* FavoritScreen.swift */; };
+		F839E59D29B8224F0085AB38 /* CultsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59C29B8224F0085AB38 /* CultsScreen.swift */; };
 		F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */; };
 		F885B2B029AAD5BB0081BF71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AF29AAD5BB0081BF71 /* SceneDelegate.swift */; };
 		F885B2B729AAD5BD0081BF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F885B2B629AAD5BD0081BF71 /* Assets.xcassets */; };
 		F885B2BA29AAD5BD0081BF71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F885B2B829AAD5BD0081BF71 /* LaunchScreen.storyboard */; };
 		F885B2C729AAD9570081BF71 /* RadioScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2C629AAD9570081BF71 /* RadioScreen.swift */; };
 		F885B2CA29AAF63D0081BF71 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2C929AAF63D0081BF71 /* TabBarController.swift */; };
-		F885B2CC29AAF8590081BF71 /* LibraryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2CB29AAF8590081BF71 /* LibraryScreen.swift */; };
+		F885B2CC29AAF8590081BF71 /* PodcastScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2CB29AAF8590081BF71 /* PodcastScreen.swift */; };
 		F885B2D029AD9AFC0081BF71 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2CF29AD9AFC0081BF71 /* Station.swift */; };
 		F885B2D829AE752F0081BF71 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2D729AE752F0081BF71 /* Service.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +29,11 @@
 /* Begin PBXFileReference section */
 		1B42CE8E29B4375D001B9346 /* HomeRadioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRadioController.swift; sourceTree = "<group>"; };
 		1B42CE9029B437DB001B9346 /* PodcastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastController.swift; sourceTree = "<group>"; };
+		F839E59429B6CBB60085AB38 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		F839E59629B81D530085AB38 /* FavoritController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritController.swift; sourceTree = "<group>"; };
+		F839E59829B81D990085AB38 /* CultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CultsController.swift; sourceTree = "<group>"; };
+		F839E59A29B822340085AB38 /* FavoritScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritScreen.swift; sourceTree = "<group>"; };
+		F839E59C29B8224F0085AB38 /* CultsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CultsScreen.swift; sourceTree = "<group>"; };
 		F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "perspectiva Cristã.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F885B2AF29AAD5BB0081BF71 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +42,7 @@
 		F885B2BB29AAD5BD0081BF71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F885B2C629AAD9570081BF71 /* RadioScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioScreen.swift; sourceTree = "<group>"; };
 		F885B2C929AAF63D0081BF71 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		F885B2CB29AAF8590081BF71 /* LibraryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryScreen.swift; sourceTree = "<group>"; };
+		F885B2CB29AAF8590081BF71 /* PodcastScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastScreen.swift; sourceTree = "<group>"; };
 		F885B2CF29AD9AFC0081BF71 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		F885B2D729AE752F0081BF71 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,6 +72,8 @@
 			children = (
 				1B42CE9029B437DB001B9346 /* PodcastController.swift */,
 				1B42CE8E29B4375D001B9346 /* HomeRadioController.swift */,
+				F839E59629B81D530085AB38 /* FavoritController.swift */,
+				F839E59829B81D990085AB38 /* CultsController.swift */,
 				F885B2C429AAD9350081BF71 /* TabBarController */,
 			);
 			path = Controller;
@@ -72,6 +84,14 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F839E59329B6CB9F0085AB38 /* Extension-Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F839E59429B6CBB60085AB38 /* File.swift */,
+			);
+			path = "Extension-Utilities";
 			sourceTree = "<group>";
 		};
 		F885B2A129AAD5BB0081BF71 = {
@@ -93,6 +113,7 @@
 		F885B2AC29AAD5BB0081BF71 /* perspectiva Cristã */ = {
 			isa = PBXGroup;
 			children = (
+				F839E59329B6CB9F0085AB38 /* Extension-Utilities */,
 				F885B2C229AAD8FA0081BF71 /* Resources */,
 				F885B2C829AADA350081BF71 /* Service */,
 				F885B2C129AAD8F20081BF71 /* Sources */,
@@ -143,7 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				F885B2C629AAD9570081BF71 /* RadioScreen.swift */,
-				F885B2CB29AAF8590081BF71 /* LibraryScreen.swift */,
+				F885B2CB29AAF8590081BF71 /* PodcastScreen.swift */,
+				F839E59A29B822340085AB38 /* FavoritScreen.swift */,
+				F839E59C29B8224F0085AB38 /* CultsScreen.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -233,14 +256,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B42CE8F29B4375D001B9346 /* HomeRadioController.swift in Sources */,
-				F885B2CC29AAF8590081BF71 /* LibraryScreen.swift in Sources */,
+				F885B2CC29AAF8590081BF71 /* PodcastScreen.swift in Sources */,
 				F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */,
+				F839E59D29B8224F0085AB38 /* CultsScreen.swift in Sources */,
 				F885B2CA29AAF63D0081BF71 /* TabBarController.swift in Sources */,
 				1B42CE9129B437DB001B9346 /* PodcastController.swift in Sources */,
+				F839E59529B6CBB60085AB38 /* File.swift in Sources */,
+				F839E59B29B822340085AB38 /* FavoritScreen.swift in Sources */,
 				F885B2D029AD9AFC0081BF71 /* Station.swift in Sources */,
 				F885B2B029AAD5BB0081BF71 /* SceneDelegate.swift in Sources */,
 				F885B2D829AE752F0081BF71 /* Service.swift in Sources */,
+				F839E59729B81D530085AB38 /* FavoritController.swift in Sources */,
 				F885B2C729AAD9570081BF71 /* RadioScreen.swift in Sources */,
+				F839E59929B81D990085AB38 /* CultsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

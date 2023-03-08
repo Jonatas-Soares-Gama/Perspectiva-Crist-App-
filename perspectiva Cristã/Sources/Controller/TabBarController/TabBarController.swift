@@ -20,7 +20,9 @@ class TabBarController: UITabBarController {
         
         let screen01 = UINavigationController(rootViewController: HomeRadioController())
         let screen02 = UINavigationController(rootViewController: PodcastController())
-        self.setViewControllers([screen01, screen02], animated: true)
+        let screen03 = UINavigationController(rootViewController: FavoritController())
+        let screen04 = UINavigationController(rootViewController: CultsController())
+        self.setViewControllers([screen01, screen02, screen03, screen04], animated: true)
         
         tabBar.backgroundColor = .white
         tabBar.isTranslucent = false
@@ -32,6 +34,12 @@ class TabBarController: UITabBarController {
         
         items[1].title = "Podcast"
         items[1].image = UIImage(systemName: "mic.fill")
+        
+        items[2].title = "Favoritos"
+        items[2].image = UIImage(systemName: "heart")
+        
+        items[3].title = "Cultos"
+        items[3].image = UIImage(systemName: "house")
     }
 }
 

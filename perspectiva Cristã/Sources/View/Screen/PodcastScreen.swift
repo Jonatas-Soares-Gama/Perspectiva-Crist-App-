@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LibraryScreen: UIView {
+class PodcastScreen: UIView {
     
     lazy var temporalyMessage: UILabel = {
         let label = UILabel()
