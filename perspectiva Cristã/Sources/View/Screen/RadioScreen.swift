@@ -70,8 +70,9 @@ class RadioScreen: UIView {
     lazy var playButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
-        button.tintColor = UIColor(red: 254/255, green: 78/255, blue: 2/255, alpha: 1.0)
+        button.setImage(UIImage(systemName: "play.circle"), for: .normal)
+        //button.tintColor = UIColor(red: 254/255, green: 78/255, blue: 2/255, alpha: 1.0)
+        button.tintColor = .white
         button.addTarget(self, action: #selector(self.ButtonPlayButton), for: .touchUpInside)
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 80), forImageIn: .normal)
         return button
@@ -80,8 +81,9 @@ class RadioScreen: UIView {
     lazy var pauseButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "pause.circle.fill"), for: .normal)
-        button.tintColor = UIColor(red: 254/255, green: 78/255, blue: 2/255, alpha: 1.0)
+        button.setImage(UIImage(systemName: "pause.circle"), for: .normal)
+      //  button.tintColor = UIColor(red: 254/255, green: 78/255, blue: 2/255, alpha: 1.0)
+        button.tintColor = .white
         button.addTarget(self, action: #selector(self.ButtonPauseButton), for: .touchUpInside)
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 80), forImageIn: .normal)
         button.isHidden = true
@@ -180,8 +182,8 @@ class RadioScreen: UIView {
             
             radioImage.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor,constant: 150),
             radioImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            radioImage.heightAnchor.constraint(equalToConstant: 270),
-            radioImage.widthAnchor.constraint(equalToConstant: 270),
+            radioImage.heightAnchor.constraint(equalToConstant: 300),
+            radioImage.widthAnchor.constraint(equalToConstant: 300),
             
             titlePlayLabel.topAnchor.constraint(equalTo: radioImage.bottomAnchor,constant: 50),
             titlePlayLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

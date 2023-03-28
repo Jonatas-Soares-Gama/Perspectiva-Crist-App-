@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let safeWindow = UIWindow(windowScene: windowScene)
         safeWindow.frame = UIScreen.main.bounds
-        safeWindow.rootViewController = TabBarController()
+        safeWindow.rootViewController = HomeRadioController()
         safeWindow.makeKeyAndVisible()
         
         window = safeWindow
