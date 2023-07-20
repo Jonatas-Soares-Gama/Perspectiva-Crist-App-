@@ -1,0 +1,57 @@
+//
+//  PodcastTableViewCell.swift
+//  perspectiva Cristã
+//
+//  Created by Felipe Domingos on 25/06/23.
+//
+
+import Foundation
+import WebKit
+
+
+class PodcastTableViewCell: BaseTableViewCell {
+    
+    static let identifier: String = "PodcastTableViewCell"
+    
+    lazy var container: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var titleLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+        
+    }()
+    
+    lazy var subTitleLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+        
+    }()
+    
+    override func addSubviews() {
+        addSubview(container)
+        container.addSubview(titleLabel)
+        container.addSubview(subTitleLabel)
+    }
+    
+    override func setupConstraints() {
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(equalTo: topAnchor),
+            container.leadingAnchor.constraint(equalTo: leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: trailingAnchor),
+            container.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
+            
+            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            subTitleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15)
+        ])
+    }
+}
+
