@@ -26,6 +26,7 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     private var service = Service()
     private var screenTV = PodcastTableViewCell()
     private var screenTVR: PodcastFirstRowCell?
+    private var screenTVT: PodcastTitleRowCell?
     var selectedID: String?
     var imageData = String()
     var dataPlaylist: [SpotifyTrack] = []
@@ -60,49 +61,66 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     }
     
     private func initViewModel() {
-        viewModel = PodcastTableViewViewModel(vcp: self, screen: screen, screenTV: screenTV, screenTVR: screenTVR, service: service)
+viewModel = PodcastTableViewViewModel(vcp: self, screen: screen, screenTV: screenTV, screenTVR: screenTVR, screenTVT: screenTVT, service: service)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        navigationController?.setNavigationBarHidden(true, animated: false)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
 }
 
 extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate {
     
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return dataPlaylist.count
+        return dataPlaylist.count + 2
     }
-    
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.row <= 0 {
+        if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PodcastFirstRowCell.identifier, for: indexPath) as! PodcastFirstRowCell
-            let episodeData = dataPlaylist[indexPath.row]
-            viewModel?.DataImage(cell, PodCastwith: episodeData)
+            if dataPlaylist.count > 0 {
+                let titleData = dataPlaylist[0]
+                viewModel?.DataImage(cell, PodCastwith: titleData)
+            }
             return cell
-        } else if indexPath.row >= 1 {
+        } else if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PodcastTitleRowCell.identifier, for: indexPath) as! PodcastTitleRowCell
+                if dataPlaylist.count > 1 {
+                    let titleData = dataPlaylist[1]
+                    viewModel?.firstRowTitle(cell, with: titleData)
+                }
+                return cell
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
-            let episodeData = dataPlaylist[indexPath.row]
-            viewModel?.DataLabels(cell, with: episodeData)
-            viewModel?.navigationBarTitle(cell, with: episodeData)
+            let episodeIndex = indexPath.row - 2
+            if episodeIndex < dataPlaylist.count {
+                let episodeData = dataPlaylist[episodeIndex]
+                viewModel?.DataLabels(cell, with: episodeData)
+                viewModel?.navigationBarTitle(cell, with: episodeData)
+            }
             return cell
         }
-        return UITableViewCell()
-}
-
+    }
+    
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if indexPath.row  <= 0 {
+    if indexPath.row <= 1 {
         
     } else {
-        let episode = dataPlaylist[indexPath.item]
+
+        let episode = dataPlaylist[indexPath.item - 2]
         let selectedID = episode.track.id
         if #available(iOS 15.0, *) {
             let vc = PodcastWebViewController(data: selectedID)
@@ -121,7 +139,7 @@ func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
 func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     if indexPath.row <= 0 {
-        return 400
+        return 350
     } else {
         return 120
     }

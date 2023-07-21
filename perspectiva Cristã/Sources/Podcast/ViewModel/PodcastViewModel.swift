@@ -45,15 +45,18 @@ class PodcastTableViewViewModel {
     private var screen:  PodcastTableViewScreen?
     private var screenTV: PodcastTableViewCell?
     private var screenTVR: PodcastFirstRowCell?
+    private var screenTVT: PodcastTitleRowCell?
     private var service: Service?
     var items = String()
+    var imageSelfColors = UIImageView()
     
     
-    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, service: Service?) {
+    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?,screenTVT: PodcastTitleRowCell?, service: Service?) {
         self.vcp = vcp
         self.screen = screen
         self.screenTV = screenTV
         self.screenTVR = screenTVR
+        self.screenTVT = screenTVT
         self.service = service
     }
     
@@ -156,16 +159,15 @@ class PodcastTableViewViewModel {
                             }
                         }
                     }
-                }
-                
-                if let secondLabelValue = components.last?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    cell.subTitleLabel.text = secondLabelValue
+                            if let secondLabelValue = components.last?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                                cell.subTitleLabel.text = secondLabelValue
+                    }
                 }
             }
         }
     }
     
-    func firstRowTitle(_ cell: PodcastFirstRowCell, with episodeData: SpotifyTrack) {
+    func firstRowTitle(_ cell: PodcastTitleRowCell, with episodeData: SpotifyTrack) {
         let string = episodeData.track.name
         let separators = [" - ", "#", "|"]
         var separatedString = string
@@ -176,19 +178,13 @@ class PodcastTableViewViewModel {
                 separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
-        screenTVR?.episodeTitle.text = "Podcast: \(separatedString)"
+        cell.episodeTitle.text = "Podcast: \(separatedString)"
     }
 
     
     func DataImage(_ cell: PodcastFirstRowCell, PodCastwith episodeData: SpotifyTrack) {
         if let imgURL = URL(string: vcp?.imageData ?? "") {
             cell.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
-                image?.getColors { colors in
-                    cell.container.backgroundColor = colors?.secondary
-                    cell.episodeTitle.textColor = colors?.primary
-                    self.screen?.tableView.separatorColor = colors?.background
-                    self.screen?.tableView.backgroundColor = colors?.secondary
-                }
             }
         }
     }

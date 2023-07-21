@@ -15,19 +15,21 @@ class PodcastTableViewCell: BaseTableViewCell {
     
     lazy var container: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     lazy var titleLabel: UILabel = {
        let label = UILabel()
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-        
     }()
     
     lazy var subTitleLabel: UILabel = {
        let label = UILabel()
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
         

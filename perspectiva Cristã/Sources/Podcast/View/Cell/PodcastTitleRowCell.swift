@@ -1,4 +1,11 @@
 //
+//  PodcastTitleRowCell.swift
+//  perspectiva Cristã
+//
+//  Created by Felipe Henrique Domingos on 21/07/23.
+//
+
+//
 //  PodcastFirstRowCell.swift
 //  perspectiva Cristã
 //
@@ -8,9 +15,9 @@
 import Foundation
 import UIKit
 
-class PodcastFirstRowCell: BaseTableViewCell {
+class PodcastTitleRowCell: BaseTableViewCell {
     
-    static let identifier: String = "PodcastFirstRowCell"
+    static let identifier: String = "PodcastTitleRowCell"
     
     lazy var container: UIView = {
         let view = UIView()
@@ -19,19 +26,16 @@ class PodcastFirstRowCell: BaseTableViewCell {
         return view
     }()
     
-    lazy var episodeImage: UIImageView = {
-        let img = UIImageView()
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.layer.shadowOpacity = 0.5
-        img.layer.shadowOffset = CGSize(width: 8, height: 6)
-        img.layer.shadowRadius = 4
-        img.clipsToBounds = false
-        return img
+    lazy var episodeTitle: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override func addSubviews() {
         addSubview(container)
-        container.addSubview(episodeImage)
+        container.addSubview(episodeTitle)
     }
     
     override func setupConstraints() {
@@ -41,10 +45,8 @@ class PodcastFirstRowCell: BaseTableViewCell {
             container.leadingAnchor.constraint(equalTo: leadingAnchor),
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            episodeImage.topAnchor.constraint(equalTo: container.topAnchor, constant: 30),
-            episodeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            episodeImage.heightAnchor.constraint(equalToConstant: 200),
-            episodeImage.widthAnchor.constraint(equalToConstant: 200),
+            episodeTitle.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
+            episodeTitle.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 }
