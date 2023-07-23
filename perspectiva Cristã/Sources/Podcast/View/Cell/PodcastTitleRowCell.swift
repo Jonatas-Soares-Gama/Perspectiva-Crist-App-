@@ -29,6 +29,7 @@ class PodcastTitleRowCell: BaseTableViewCell {
     lazy var episodeTitle: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +46,7 @@ class PodcastTitleRowCell: BaseTableViewCell {
             container.leadingAnchor.constraint(equalTo: leadingAnchor),
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            episodeTitle.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
+            episodeTitle.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -5),
             episodeTitle.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }

@@ -23,9 +23,6 @@ class HomeRadioController: UIViewController {
         initViewModel()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
     
     private func initViewModel() {
         if let screen = self.screen {

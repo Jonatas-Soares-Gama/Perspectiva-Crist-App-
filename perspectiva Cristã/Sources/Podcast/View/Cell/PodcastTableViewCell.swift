@@ -23,12 +23,17 @@ class PodcastTableViewCell: BaseTableViewCell {
     lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 15)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var subTitleLabel: UILabel = {
        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 12)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -48,11 +53,13 @@ class PodcastTableViewCell: BaseTableViewCell {
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -5),
             
             subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            subTitleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15)
+            subTitleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
+            subTitleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -5)
         ])
     }
 }

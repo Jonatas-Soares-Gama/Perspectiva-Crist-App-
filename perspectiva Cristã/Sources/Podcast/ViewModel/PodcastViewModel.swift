@@ -44,14 +44,13 @@ class PodcastTableViewViewModel {
     private var vcp: PodcastTableViewController?
     private var screen:  PodcastTableViewScreen?
     private var screenTV: PodcastTableViewCell?
-    private var screenTVR: PodcastFirstRowCell?
+    private var screenTVR: PodcastImageRowCell?
     private var screenTVT: PodcastTitleRowCell?
     private var service: Service?
     var items = String()
     var imageSelfColors = UIImageView()
     
-    
-    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?,screenTVT: PodcastTitleRowCell?, service: Service?) {
+    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastImageRowCell?,screenTVT: PodcastTitleRowCell?, service: Service?) {
         self.vcp = vcp
         self.screen = screen
         self.screenTV = screenTV
@@ -90,80 +89,42 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func navigationBarTitle(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
-        let string = episodeData.track.name
-        let separators = [" - ", "#", "|"]
-        var separatedString = string
-        
-        for separator in separators {
-            let components = separatedString.components(separatedBy: separator)
-            if let firstComponent = components.first {
-                separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
+    func navigationTitleGrandList(data: UIScrollView) {
+        let indexPath = IndexPath(row: 1, section: 0)
+        let cellRect = screen?.tableView.rectForRow(at: indexPath)
+        if let cellRect = cellRect {
+            let cellPosition = screen?.tableView.convert(cellRect.origin, to: self.vcp?.view)
+            let navigationBarHeight = self.vcp?.navigationController?.navigationBar.frame.height ?? 0
+            if let vcp = vcp {
+                for i in vcp.dataPlaylist {
+                    let string = i.track.name
+                    let separators = [" - ", "#", "|"]
+                    var separatedString = string
+                    
+                    for separator in separators {
+                        let components = separatedString.components(separatedBy: separator)
+                        if let firstComponent = components.first {
+                            separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
+                        }
+                        if cellPosition?.y ?? 0 < navigationBarHeight {
+                            vcp.navigationItem.title = "\(separatedString)"
+                        } else if vcp.dataPlaylist.count <= 3 {
+                            vcp.navigationItem.title = ""
+                        } else {
+                            vcp.navigationItem.title = ""
+                        }
+                    }
+                }
             }
         }
-        vcp?.navigationItem.title = "Podcast: \(separatedString)"
+        
     }
     
     func DataLabels(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
-        let string = episodeData.track.name
         
-        let separators = [" - ", "#", "|"]
-        var excludedString = string
-        
-        for separator in separators {
-            let components = excludedString.components(separatedBy: separator)
-            if let firstComponent = components.first {
-                excludedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-        }
-        if let range = string.range(of: "\(excludedString)") {
-            let index = range.upperBound
-            let trimmedString = String(string[index...])
-            
-            // Separar pelo "|", "-" ou "#"
-            let separators = [" | ", " - ", "#"]
-            var separatedStringLabel: [String]? = nil
-            
-            for separator in separators {
-                separatedStringLabel = trimmedString.components(separatedBy: separator)
-                if separatedStringLabel?.count ?? 0 > 1 {
-                    break
-                }
-            }
-            
-            if let components = separatedStringLabel {
-                if let firstLabelValue = components.first?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    cell.titleLabel.text = "\(firstLabelValue):"
-                    if cell.titleLabel.text?.count ?? 0 < 4 {
-                        cell.titleLabel.text = "Episódio: \(firstLabelValue)"
-                    } else {
-                        if let range = string.range(of: " - ") {
-                            let index = range.upperBound
-                            let trimmedString = String(string[index...])
-                            
-                            // Separar pelo "|", "-" ou "#"
-                            let separators = [" | ", " - ", "#"]
-                            var separatedStringLabel: [String]? = nil
-                            
-                            for separator in separators {
-                                separatedStringLabel = trimmedString.components(separatedBy: separator)
-                                if separatedStringLabel?.count ?? 0 > 1 {
-                                    break
-                                }
-                            }
-                            
-                            if let components = separatedStringLabel {
-                                if let firstLabelValue = components.first?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                                    cell.titleLabel.text = "\(firstLabelValue):"
-                                }
-                            }
-                        }
-                    }
-                            if let secondLabelValue = components.last?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                                cell.subTitleLabel.text = secondLabelValue
-                    }
-                }
-            }
+        cell.titleLabel.text = episodeData.track.name
+        for i in episodeData.track.artists {
+            cell.subTitleLabel.text = i.name
         }
     }
     
@@ -178,17 +139,52 @@ class PodcastTableViewViewModel {
                 separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
-        cell.episodeTitle.text = "Podcast: \(separatedString)"
+        cell.episodeTitle.text = "\(separatedString)"
     }
-
     
-    func DataImage(_ cell: PodcastFirstRowCell, PodCastwith episodeData: SpotifyTrack) {
+    
+    func DataImage(_ cell: PodcastImageRowCell, PodCastwith episodeData: SpotifyTrack) {
         if let imgURL = URL(string: vcp?.imageData ?? "") {
             cell.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
             }
         }
     }
+    
+    func configureCallsTableViewInWebView(indexPath: IndexPath) {
+        if indexPath.row <= 1 {
+            
+        } else {
+            
+            let episode = vcp?.dataPlaylist[indexPath.item - 2]
+            if let selectedID = episode?.track.id {
+                if #available(iOS 15.0, *) {
+                    let vc = PodcastWebViewController(data: selectedID)
+                    let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("myCustomDetent")) { [weak self] context in
+                        guard let self = self else { return 0.0 }
+                        return (self.vcp?.view.frame.height ?? 0) - 500.0
+                    }
+                    
+                    if let sheet = vc.sheetPresentationController {
+                        sheet.detents = [ customDetent ]
+                    }
+                    vcp?.navigationController?.present(vc, animated: true)
+                }
+            }
+        }
+    }
+    
+    func sizeOfRows(heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 300
+        } else if indexPath.row == 1 {
+            return 50
+        } else {
+            return 90
+        }
+    }
 }
+
+
 
 class PodcastWebViewviewModel {
     

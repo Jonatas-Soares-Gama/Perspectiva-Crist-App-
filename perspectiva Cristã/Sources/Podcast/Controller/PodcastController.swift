@@ -35,9 +35,10 @@ class PodcastController: UIViewController {
             self.items = items
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     private func initViewModel() {

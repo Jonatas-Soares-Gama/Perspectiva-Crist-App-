@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PodcastFirstRowCell: BaseTableViewCell {
+class PodcastImageRowCell: BaseTableViewCell {
     
     static let identifier: String = "PodcastFirstRowCell"
     
@@ -43,8 +43,8 @@ class PodcastFirstRowCell: BaseTableViewCell {
             
             episodeImage.topAnchor.constraint(equalTo: container.topAnchor, constant: 30),
             episodeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            episodeImage.heightAnchor.constraint(equalToConstant: 200),
-            episodeImage.widthAnchor.constraint(equalToConstant: 200),
+            episodeImage.heightAnchor.constraint(equalToConstant: 250),
+            episodeImage.widthAnchor.constraint(equalToConstant: 250),
         ])
     }
 }
