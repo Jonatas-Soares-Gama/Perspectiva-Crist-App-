@@ -89,6 +89,20 @@ class PodcastTableViewViewModel {
         }
     }
     
+    func effectFadeOut(scrollView: UIScrollView) {
+        if let indexPath = screen?.tableView.indexPathsForVisibleRows?.first {
+            // Obtém a célula correspondente
+            let cell = screen?.tableView.cellForRow(at: indexPath)
+            // Verifica se é a primeira linha (índice 0)
+            if indexPath.row == 0 {
+                // Calcula o fator de opacidade com base na posição da célula na tela
+                let alpha = 1.0 - scrollView.contentOffset.y / (cell?.frame.height ?? 0)
+                // Define a opacidade da célula
+                cell?.alpha = alpha
+            }
+        }
+    }
+    
     func navigationTitleGrandList(data: UIScrollView) {
         let indexPath = IndexPath(row: 1, section: 0)
         let cellRect = screen?.tableView.rectForRow(at: indexPath)
@@ -117,8 +131,8 @@ class PodcastTableViewViewModel {
                 }
             }
         }
-        
     }
+    
     
     func DataLabels(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
         

@@ -83,6 +83,7 @@ extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         viewModel?.navigationTitleGrandList(data: scrollView)
+        viewModel?.effectFadeOut(scrollView: scrollView)
     }
     
     
@@ -105,6 +106,7 @@ extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PodcastImageRowCell.identifier, for: indexPath) as! PodcastImageRowCell
+            cell.alpha = 1.0
             if dataPlaylist.count > 0 {
                 let titleData = dataPlaylist[0]
                 viewModel?.DataImage(cell, PodCastwith: titleData)

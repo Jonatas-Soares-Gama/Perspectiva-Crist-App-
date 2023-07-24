@@ -34,7 +34,7 @@ class PodcastWebviewScreen: BaseView {
     override func setupConstrainst() {
         NSLayoutConstraint.activate([
             
-            container.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: -50),
+            container.topAnchor.constraint(equalTo: topAnchor, constant: 330),
             container.leadingAnchor.constraint(equalTo: leadingAnchor),
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
