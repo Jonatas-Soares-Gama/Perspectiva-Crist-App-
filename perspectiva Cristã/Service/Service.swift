@@ -11,6 +11,7 @@ import Alamofire
 class Service {
     
     func requestApi(completion: @escaping(_ station: List) -> Void) {
+        
         let baseUrl = "https://s09.w3bserver.com/api/nowplaying_static/perspectiva_crista.json"
         
         AF.request(baseUrl, method: .get).response { response in
@@ -50,7 +51,6 @@ class Service {
             "client_id": "888a9ba038a446c39e6cff556f7fc935",
             "client_secret": "ea628a502e214b4a967ed6eb0ff3b84a"
         ]
-        
         let headers: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
         
         AF.request("https://accounts.spotify.com/api/token", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)
@@ -59,7 +59,7 @@ class Service {
                     let decoder = JSONDecoder()
                     guard let tokenDecoder = try? decoder.decode(Token.self, from: data) else { return }
                     UserDefaults.standard.set(tokenDecoder.token, forKey: "someObject")
-                    print(UserDefaults.standard.string(forKey: "someObject") ?? "")
+                    //                    print(UserDefaults.standard.string(forKey: "someObject") ?? "")
                     completion(tokenDecoder)
                 }
             }

@@ -29,7 +29,7 @@ class PodcastViewModel {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if remainingTime > 0 {
                 remainingTime -= 1
-                print("Tempo restante: \(remainingTime)")
+                //                print("Tempo restante: \(remainingTime)")
             } else if remainingTime == 0 {
                 self.service?.requestSpotifyToken{ token in
                     self.timerTobearerToken(bearer: token)
@@ -49,6 +49,10 @@ class PodcastTableViewViewModel {
     private var service: Service?
     var items = String()
     var imageSelfColors = UIImageView()
+    let originalImageHeight: CGFloat = 400
+    var dataPlaylist: [SpotifyTrack] = []
+    var imageData = String()
+
     
     init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastImageRowCell?,screenTVT: PodcastTitleRowCell?, service: Service?) {
         self.vcp = vcp
@@ -89,15 +93,61 @@ class PodcastTableViewViewModel {
         }
     }
     
+    func populateViewModel() {
+        service?.requestSpotifyApi(ids: items) { episodes in
+                self.dataToTableView(data: episodes)
+        }
+    }
+    
+    func dataToTableView(data: SpotifyPlaylistResponse) {
+        self.dataPlaylist.append(contentsOf: data.playlist.items)
+        for img in data.images {
+            imageData = img.url
+        }
+        screen?.tableView.reloadData()
+    }
+    
+    func tableViewContent(indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastImageRowCell.identifier, for: indexPath) as! PodcastImageRowCell
+            cell.alpha = 1.0
+            if dataPlaylist.count > 0 {
+                let titleData = dataPlaylist[0]
+                DataImage(cell, PodCastwith: titleData)
+            }
+            return cell
+        } else if indexPath.row == 1 {
+            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastTitleRowCell.identifier, for: indexPath) as! PodcastTitleRowCell
+            if dataPlaylist.count >= 1 {
+                let titleData = dataPlaylist[0]
+                firstRowTitle(cell, with: titleData)
+            }
+            return cell
+        } else {
+            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
+            let episodeIndex = indexPath.row - 2
+            if episodeIndex < dataPlaylist.count {
+                let episodeData = dataPlaylist[episodeIndex]
+                DataLabels(cell, with: episodeData)
+            }
+            return cell
+        }
+    }
+    
+    func separatorLine(cell: UITableViewCell, indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+            screen?.tableView.separatorColor = .gray
+        }
+    }
+    
     func effectFadeOut(scrollView: UIScrollView) {
         if let indexPath = screen?.tableView.indexPathsForVisibleRows?.first {
-            // Obtém a célula correspondente
             let cell = screen?.tableView.cellForRow(at: indexPath)
-            // Verifica se é a primeira linha (índice 0)
             if indexPath.row == 0 {
-                // Calcula o fator de opacidade com base na posição da célula na tela
                 let alpha = 1.0 - scrollView.contentOffset.y / (cell?.frame.height ?? 0)
-                // Define a opacidade da célula
                 cell?.alpha = alpha
             }
         }
@@ -110,11 +160,10 @@ class PodcastTableViewViewModel {
             let cellPosition = screen?.tableView.convert(cellRect.origin, to: self.vcp?.view)
             let navigationBarHeight = self.vcp?.navigationController?.navigationBar.frame.height ?? 0
             if let vcp = vcp {
-                for i in vcp.dataPlaylist {
+                for i in dataPlaylist {
                     let string = i.track.name
                     let separators = [" - ", "#", "|"]
                     var separatedString = string
-                    
                     for separator in separators {
                         let components = separatedString.components(separatedBy: separator)
                         if let firstComponent = components.first {
@@ -122,7 +171,7 @@ class PodcastTableViewViewModel {
                         }
                         if cellPosition?.y ?? 0 < navigationBarHeight {
                             vcp.navigationItem.title = "\(separatedString)"
-                        } else if vcp.dataPlaylist.count <= 3 {
+                        } else if dataPlaylist.count <= 3 {
                             vcp.navigationItem.title = ""
                         } else {
                             vcp.navigationItem.title = ""
@@ -133,9 +182,7 @@ class PodcastTableViewViewModel {
         }
     }
     
-    
     func DataLabels(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
-        
         cell.titleLabel.text = episodeData.track.name
         for i in episodeData.track.artists {
             cell.subTitleLabel.text = i.name
@@ -156,23 +203,19 @@ class PodcastTableViewViewModel {
         cell.episodeTitle.text = "\(separatedString)"
     }
     
-    
     func DataImage(_ cell: PodcastImageRowCell, PodCastwith episodeData: SpotifyTrack) {
-        if let imgURL = URL(string: vcp?.imageData ?? "") {
-            cell.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
-            }
+        if let imgURL = URL(string: imageData ) {
+            cell.episodeImage.sd_setImage(with: imgURL)
+                cell.bgImage.sd_setImage(with: imgURL)
         }
     }
     
     func configureCallsTableViewInWebView(indexPath: IndexPath) {
         if indexPath.row <= 1 {
-            
         } else {
-            
-            let episode = vcp?.dataPlaylist[indexPath.item - 2]
-            if let selectedID = episode?.track.id {
+            let episode = dataPlaylist[indexPath.item - 2]
                 if #available(iOS 15.0, *) {
-                    let vc = PodcastWebViewController(data: selectedID)
+                    let vc = PodcastWebViewController(data: episode.track.id)
                     let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("myCustomDetent")) { [weak self] context in
                         guard let self = self else { return 0.0 }
                         return (self.vcp?.view.frame.height ?? 0) - 500.0
@@ -182,14 +225,13 @@ class PodcastTableViewViewModel {
                         sheet.detents = [ customDetent ]
                     }
                     vcp?.navigationController?.present(vc, animated: true)
-                }
             }
         }
     }
     
-    func sizeOfRows(heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func sizeOfRows(indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 300
+            return 400
         } else if indexPath.row == 1 {
             return 50
         } else {
@@ -197,8 +239,6 @@ class PodcastTableViewViewModel {
         }
     }
 }
-
-
 
 class PodcastWebViewviewModel {
     
@@ -227,3 +267,4 @@ class PodcastWebViewviewModel {
         }
     }
 }
+
