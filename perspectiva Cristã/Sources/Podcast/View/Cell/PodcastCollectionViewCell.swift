@@ -8,6 +8,8 @@
 import UIKit
 
 class PodcastCollectionViewCell: BaseViewCell {
+    
+    static let identifier: String = "PodcastCollectionViewCell"
 
     lazy var serviceView: UIView = {
         let view = UIView()

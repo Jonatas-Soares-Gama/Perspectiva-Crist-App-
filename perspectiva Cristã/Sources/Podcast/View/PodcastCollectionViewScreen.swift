@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 
 class PodcastScreen: BaseView {
-    
-    let identifier: String = "PodcastCollectionViewCell"
-    
+        
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Perspectiva Cristã"
@@ -46,7 +44,7 @@ class PodcastScreen: BaseView {
         let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.register(PodcastCollectionViewCell.self, forCellWithReuseIdentifier: identifier)
+        collectionView.register(PodcastCollectionViewCell.self, forCellWithReuseIdentifier: PodcastCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()

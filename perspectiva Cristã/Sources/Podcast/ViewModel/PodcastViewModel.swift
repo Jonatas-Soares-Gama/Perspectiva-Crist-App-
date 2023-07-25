@@ -12,17 +12,34 @@ import SDWebImage
 
 class PodcastViewModel {
     
-    private var vcp: PodcastController?
+    private var vcp: PodcastCollectionController?
     private var screen:  PodcastScreen?
+    private var viewCell: PodcastCollectionViewCell?
     private var service: Service?
     var timer = Timer()
+    var items: [Item] = []
+
     
-    init(vcp: PodcastController?, screen: PodcastScreen?, service: Service?) {
+    init(vcp: PodcastCollectionController?, screen: PodcastScreen?, viewCell: PodcastCollectionViewCell?, service: Service?) {
         self.vcp = vcp
         self.screen = screen
+        self.viewCell = viewCell
         self.service = service
     }
     
+    func addData() {
+        CollectionItemsMock.shared.loadItems { items in
+            print(items.count)
+            self.items = items
+        }
+    }
+    
+        func collectionViewContent(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PodcastCollectionViewCell.identifier , for: indexPath) as! PodcastCollectionViewCell
+        let item = items[indexPath.item]
+        cell.logoImage.image = UIImage(named: item.image)
+        return cell
+    }
     
     func timerTobearerToken(bearer: Token) {
         var remainingTime = bearer.expireTime
@@ -38,6 +55,7 @@ class PodcastViewModel {
         }
     }
 }
+
 
 class PodcastTableViewViewModel {
     
@@ -105,33 +123,6 @@ class PodcastTableViewViewModel {
             imageData = img.url
         }
         screen?.tableView.reloadData()
-    }
-    
-    func tableViewContent(indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastImageRowCell.identifier, for: indexPath) as! PodcastImageRowCell
-            cell.alpha = 1.0
-            if dataPlaylist.count > 0 {
-                let titleData = dataPlaylist[0]
-                DataImage(cell, PodCastwith: titleData)
-            }
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastTitleRowCell.identifier, for: indexPath) as! PodcastTitleRowCell
-            if dataPlaylist.count >= 1 {
-                let titleData = dataPlaylist[0]
-                firstRowTitle(cell, with: titleData)
-            }
-            return cell
-        } else {
-            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
-            let episodeIndex = indexPath.row - 2
-            if episodeIndex < dataPlaylist.count {
-                let episodeData = dataPlaylist[episodeIndex]
-                DataLabels(cell, with: episodeData)
-            }
-            return cell
-        }
     }
     
     func separatorLine(cell: UITableViewCell, indexPath: IndexPath) {

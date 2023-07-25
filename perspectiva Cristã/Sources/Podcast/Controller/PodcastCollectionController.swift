@@ -8,12 +8,12 @@
 import UIKit
 import WebKit
 
-class PodcastController: UIViewController {
+class PodcastCollectionController: UIViewController {
     
     private var screen = PodcastScreen()
     private var service = Service()
     private var viewModel: PodcastViewModel?
-    var items: [Item] = []
+    private var viewCell: PodcastCollectionViewCell?
     
     override func loadView() {
         self.view = self.screen
@@ -21,19 +21,13 @@ class PodcastController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addData()
         initViewModel()
         self.screen.configCollectionViewProtocols(delegate: self, dataSource: self)
         view.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         service.requestSpotifyToken { token in
             self.viewModel?.timerTobearerToken(bearer: token)
         }
-    }
-    
-    func addData() {
-        CollectionItemsMock.shared.loadItems { items in
-            self.items = items
-        }
+        viewModel?.addData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,20 +36,20 @@ class PodcastController: UIViewController {
     }
     
     private func initViewModel() {
-        viewModel = PodcastViewModel(vcp: self, screen: screen, service: service)
+        viewModel = PodcastViewModel(vcp: self, screen: screen, viewCell: viewCell, service: service)
     }
 }
 
-extension PodcastController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
+extension PodcastCollectionController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return viewModel?.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: screen.identifier, for: indexPath) as! PodcastCollectionViewCell
-        let item = items[indexPath.item]
-        cell.logoImage.image = UIImage(named: item.image)
+        guard let cell = viewModel?.collectionViewContent(collectionView: collectionView, indexPath: indexPath) else {
+            return UICollectionViewCell()
+        }
         return cell
     }
     
