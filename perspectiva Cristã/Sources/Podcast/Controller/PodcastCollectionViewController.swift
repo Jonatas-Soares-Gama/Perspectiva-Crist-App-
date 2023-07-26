@@ -8,11 +8,11 @@
 import UIKit
 import WebKit
 
-class PodcastCollectionController: UIViewController {
+class PodcastCollectionViewController: UIViewController {
     
     private var screen = PodcastScreen()
     private var service = Service()
-    private var viewModel: PodcastViewModel?
+    private var viewModel: PodcastCollectionViewViewModel?
     private var viewCell: PodcastCollectionViewCell?
     
     override func loadView() {
@@ -36,14 +36,14 @@ class PodcastCollectionController: UIViewController {
     }
     
     private func initViewModel() {
-        viewModel = PodcastViewModel(vcp: self, screen: screen, viewCell: viewCell, service: service)
+        viewModel = PodcastCollectionViewViewModel(vcp: self, screen: screen, viewCell: viewCell, service: service)
     }
 }
 
-extension PodcastCollectionController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
+extension PodcastCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = viewModel?.items.count else { return Int() }
+        guard let count = viewModel?.countCollectionViewItems(collectionView, numberOfItemsInSection: section) else { return Int() }
         return count
     }
     

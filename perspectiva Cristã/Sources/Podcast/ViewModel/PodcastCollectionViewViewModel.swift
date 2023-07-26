@@ -10,9 +10,9 @@ import WebKit
 import UIKit
 import SDWebImage
 
-class PodcastViewModel {
+class PodcastCollectionViewViewModel {
     
-    private var vcp: PodcastCollectionController?
+    private var vcp: PodcastCollectionViewController?
     private var screen:  PodcastScreen?
     private var viewCell: PodcastCollectionViewCell?
     private var service: Service?
@@ -20,7 +20,7 @@ class PodcastViewModel {
     var items: [Item] = []
 
     
-    init(vcp: PodcastCollectionController?, screen: PodcastScreen?, viewCell: PodcastCollectionViewCell?, service: Service?) {
+    init(vcp: PodcastCollectionViewController?, screen: PodcastScreen?, viewCell: PodcastCollectionViewCell?, service: Service?) {
         self.vcp = vcp
         self.screen = screen
         self.viewCell = viewCell
@@ -31,6 +31,11 @@ class PodcastViewModel {
         CollectionItemsMock.shared.loadItems { items in
             self.items = items
         }
+    }
+    
+    func countCollectionViewItems(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
+        
     }
     
         func collectionViewContent(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {

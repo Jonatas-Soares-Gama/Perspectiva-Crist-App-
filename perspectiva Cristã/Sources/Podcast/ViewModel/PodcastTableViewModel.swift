@@ -13,15 +13,14 @@ class PodcastTableViewViewModel {
     private var vcp: PodcastTableViewController?
     private var screen:  PodcastTableViewScreen?
     private var screenTV: PodcastTableViewCell?
-    private var screenTVR: PodcastTitleRowCell?
+    private var screenTVR: PodcastFirstRowCell?
     private var service: Service?
-    var items = String()
-    var imageSelfColors = UIImageView()
-    var dataPlaylist: [SpotifyTrack] = []
-    var imageData = String()
+    private var items = String()
+    private var dataPlaylist: [SpotifyTrack] = []
+    private var imageData = String()
     
     
-    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastTitleRowCell?, service: Service?) {
+    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, service: Service?) {
         self.vcp = vcp
         self.screen = screen
         self.screenTV = screenTV
@@ -65,7 +64,7 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func dataToTableView(data: SpotifyPlaylistResponse) {
+    private func dataToTableView(data: SpotifyPlaylistResponse) {
         self.dataPlaylist.append(contentsOf: data.playlist.items)
         for img in data.images {
             imageData = img.url
@@ -73,9 +72,13 @@ class PodcastTableViewViewModel {
         screen?.tableView.reloadData()
     }
     
+    func countOfRows(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataPlaylist.count + 1
+    }
+    
     func tableViewContent(indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastTitleRowCell.identifier, for: indexPath) as! PodcastTitleRowCell
+            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastFirstRowCell.identifier, for: indexPath) as! PodcastFirstRowCell
             if dataPlaylist.count > 0 {
                 let titleData = dataPlaylist[0]
                 firstRowTitle(cell, with: titleData)
@@ -123,12 +126,30 @@ class PodcastTableViewViewModel {
     }
     
     
-    func setNotTransparentNavigationBar() {
+    private func setNotTransparentNavigationBar() {
         vcp?.navigationController?.setNavigationBarHidden(false, animated: false)
         vcp?.navigationController?.navigationBar.tintColor = .white
         vcp?.navigationController?.navigationBar.backgroundColor = .blue
         vcp?.navigationController?.navigationBar.backItem?.title = ""
     }
+    
+    private func separetedString() {
+        if let vcp = vcp {
+            for i in dataPlaylist {
+                let string = i.track.name
+                let separators = [" - ", "#", "|"]
+                var separatedString = string
+                for separator in separators {
+                    let components = separatedString.components(separatedBy: separator)
+                    if let firstComponent = components.first {
+                        separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }
+                    vcp.navigationItem.title = "\(separatedString)"
+                }
+            }
+        }
+    }
+    
     
     func navigationBarTitle(scrollView: UIScrollView) {
         let indexPath = IndexPath(row: 1, section: 0)
@@ -136,27 +157,13 @@ class PodcastTableViewViewModel {
         if let cellRect = cellRect {
             let cellPosition = screen?.tableView.convert(cellRect.origin, to: self.vcp?.view)
             let navigationBarHeight = self.vcp?.navigationController?.navigationBar.frame.height ?? 0
-            if let vcp = vcp {
-                for i in dataPlaylist {
-                    let string = i.track.name
-                    let separators = [" - ", "#", "|"]
-                    var separatedString = string
-                    for separator in separators {
-                        let components = separatedString.components(separatedBy: separator)
-                        if let firstComponent = components.first {
-                            separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
-                        }
-                        if cellPosition?.y ?? 0 <= navigationBarHeight {
-                            setNotTransparentNavigationBar()
-                            vcp.navigationItem.title = "\(separatedString)"
-                        } else if dataPlaylist.count <= 3 {
-                            setTransparentNavigationBar()
-                            
-                        } else {
-                            setTransparentNavigationBar()
-                        }
-                    }
-                }
+            if cellPosition?.y ?? 0 <= navigationBarHeight {
+                setNotTransparentNavigationBar()
+                separetedString()
+            } else if dataPlaylist.count <= 3 {
+                setTransparentNavigationBar()
+            } else {
+                setTransparentNavigationBar()
             }
         }
     }
@@ -168,7 +175,7 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func firstRowTitle(_ cell: PodcastTitleRowCell, with episodeData: SpotifyTrack) {
+    func firstRowTitle(_ cell: PodcastFirstRowCell, with episodeData: SpotifyTrack) {
         let string = episodeData.track.name
         let separators = [" - ", "#", "|"]
         var separatedString = string
@@ -182,7 +189,7 @@ class PodcastTableViewViewModel {
         cell.titleLabel.text = "\(separatedString)"
     }
     
-    func DataImage(_ cell: PodcastTitleRowCell, PodCastwith episodeData: SpotifyTrack) {
+    func DataImage(_ cell: PodcastFirstRowCell, PodCastwith episodeData: SpotifyTrack) {
         if let imgURL = URL(string: imageData ) {
             cell.episodeImage.sd_setImage(with: imgURL)
             cell.bgImage.sd_setImage(with: imgURL)

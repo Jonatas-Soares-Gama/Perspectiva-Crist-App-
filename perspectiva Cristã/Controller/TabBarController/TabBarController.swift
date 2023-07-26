@@ -22,7 +22,7 @@ class TabBarController: UITabBarController {
     private func setupTabBarController() {
         
         let screen01 = UINavigationController(rootViewController: HomeRadioController())
-        let screen02 = UINavigationController(rootViewController: PodcastCollectionController())
+        let screen02 = UINavigationController(rootViewController: PodcastCollectionViewController())
         let screen03 = UINavigationController(rootViewController: DonationController())
         self.setViewControllers([screen01, screen02, screen03], animated: true)
         

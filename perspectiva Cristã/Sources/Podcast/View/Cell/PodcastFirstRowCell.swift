@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PodcastTitleRowCell: BaseTableViewCell {
+class PodcastFirstRowCell: BaseTableViewCell {
     
     static let identifier: String = "PodcastFirstRowCell"
     

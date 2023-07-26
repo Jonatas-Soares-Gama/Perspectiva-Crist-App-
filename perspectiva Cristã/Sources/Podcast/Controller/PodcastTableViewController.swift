@@ -22,7 +22,7 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     
     private var screen = PodcastTableViewScreen()
     private var screenTV = PodcastTableViewCell()
-    private var screenTVR: PodcastTitleRowCell?
+    private var screenTVR: PodcastFirstRowCell?
     private var viewModel: PodcastTableViewViewModel?
     private var service = Service()
     
@@ -72,7 +72,8 @@ extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (viewModel?.dataPlaylist.count ?? 0) + 1
+        guard let count = viewModel?.countOfRows(tableView, numberOfRowsInSection: section) else  { return Int() }
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,6 +89,7 @@ extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        viewModel?.sizeOfRows(indexPath: indexPath) ?? 0
+        guard let size = viewModel?.sizeOfRows(indexPath: indexPath) else  { return CGFloat() }
+        return size
     }
 }
