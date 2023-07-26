@@ -43,7 +43,8 @@ class PodcastCollectionController: UIViewController {
 extension PodcastCollectionController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.items.count ?? 0
+        guard let count = viewModel?.items.count else { return Int() }
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -54,10 +55,8 @@ extension PodcastCollectionController: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let spacing: CGFloat = 10.0
-        let width = (collectionView.bounds.width - spacing * 3) / 1.9555
-        let height = width
-        return CGSize(width: width, height: height)
+        guard let size = viewModel?.spacingOfCollectionsView(collectionView: collectionView) else { return CGSize()}
+        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

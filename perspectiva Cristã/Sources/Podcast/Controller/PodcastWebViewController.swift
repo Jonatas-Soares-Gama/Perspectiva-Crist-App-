@@ -20,7 +20,7 @@ class PodcastWebViewController: UIViewController {
     }
     
     var screen = PodcastWebviewScreen()
-    var viewModel: PodcastWebViewviewModel?
+    var viewModel: PodcastWebViewViewModel?
 
     override func loadView() {
         self.view = self.screen
@@ -35,6 +35,6 @@ class PodcastWebViewController: UIViewController {
     }
     
     private func initViewModel() {
-        viewModel = PodcastWebViewviewModel(screen: screen, vc: self)
+        viewModel = PodcastWebViewViewModel(screen: screen, vc: self)
     }
 }

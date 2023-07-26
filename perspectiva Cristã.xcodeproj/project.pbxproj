@@ -27,14 +27,15 @@
 		1BCB97CC2A2D96820052C623 /* PodcastCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCB97CB2A2D96820052C623 /* PodcastCollectionController.swift */; };
 		6BEE66D529D3BC300018B4A1 /* RadioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEE66D429D3BC300018B4A1 /* RadioViewModel.swift */; };
 		6BEE66D829D3BEC70018B4A1 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEE66D729D3BEC70018B4A1 /* BaseView.swift */; };
-		B41EF0D82A662B11006E753B /* PodcastImageRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41EF0D72A662B11006E753B /* PodcastImageRowCell.swift */; };
+		B41EF0D82A662B11006E753B /* PodcastTitleRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41EF0D72A662B11006E753B /* PodcastTitleRowCell.swift */; };
 		B432B81C2A5D8B2E00B313D1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432B81B2A5D8B2E00B313D1 /* TabBarController.swift */; };
-		B44318422A6A2E4200772C1E /* PodcastTitleRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44318412A6A2E4100772C1E /* PodcastTitleRowCell.swift */; };
 		B44ACEBB2A5E0F510020430B /* DonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44ACEBA2A5E0F510020430B /* DonationModel.swift */; };
 		B44ACEBE2A5E0F640020430B /* DonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44ACEBD2A5E0F640020430B /* DonationViewModel.swift */; };
 		B44CB98F2A5CF4A700F73413 /* DonationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB98E2A5CF4A700F73413 /* DonationController.swift */; };
 		B44CB9912A5CF4B100F73413 /* DonationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB9902A5CF4B000F73413 /* DonationScreen.swift */; };
 		B45E8B132A643C90004D4210 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B45E8B122A643C90004D4210 /* SwiftSoup */; };
+		B48F77102A70CEB000875DAD /* PodcastTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */; };
+		B48F77122A70CEE800875DAD /* PodcastWebViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */; };
 		F839E59529B6CBB60085AB38 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59429B6CBB60085AB38 /* File.swift */; };
 		F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */; };
 		F885B2B029AAD5BB0081BF71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AF29AAD5BB0081BF71 /* SceneDelegate.swift */; };
@@ -62,13 +63,14 @@
 		1BCB97CB2A2D96820052C623 /* PodcastCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastCollectionController.swift; sourceTree = "<group>"; };
 		6BEE66D429D3BC300018B4A1 /* RadioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioViewModel.swift; sourceTree = "<group>"; };
 		6BEE66D729D3BEC70018B4A1 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		B41EF0D72A662B11006E753B /* PodcastImageRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastImageRowCell.swift; sourceTree = "<group>"; };
+		B41EF0D72A662B11006E753B /* PodcastTitleRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTitleRowCell.swift; sourceTree = "<group>"; };
 		B432B81B2A5D8B2E00B313D1 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		B44318412A6A2E4100772C1E /* PodcastTitleRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTitleRowCell.swift; sourceTree = "<group>"; };
 		B44ACEBA2A5E0F510020430B /* DonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationModel.swift; sourceTree = "<group>"; };
 		B44ACEBD2A5E0F640020430B /* DonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewModel.swift; sourceTree = "<group>"; };
 		B44CB98E2A5CF4A700F73413 /* DonationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationController.swift; sourceTree = "<group>"; };
 		B44CB9902A5CF4B000F73413 /* DonationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationScreen.swift; sourceTree = "<group>"; };
+		B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTableViewModel.swift; sourceTree = "<group>"; };
+		B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastWebViewViewModel.swift; sourceTree = "<group>"; };
 		F839E59429B6CBB60085AB38 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "perspectiva Cristã.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,8 +102,7 @@
 			children = (
 				1B24FEB72A3CE4E600E15A8B /* PodcastCollectionViewCell.swift */,
 				1B3119952A48993B002DCEEF /* PodcastTableViewCell.swift */,
-				B41EF0D72A662B11006E753B /* PodcastImageRowCell.swift */,
-				B44318412A6A2E4100772C1E /* PodcastTitleRowCell.swift */,
+				B41EF0D72A662B11006E753B /* PodcastTitleRowCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -182,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				1B5716232A3EB57900ED24E5 /* PodcastViewModel.swift */,
+				B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */,
+				B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -441,11 +444,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B48F77102A70CEB000875DAD /* PodcastTableViewModel.swift in Sources */,
 				1B5716242A3EB57900ED24E5 /* PodcastViewModel.swift in Sources */,
 				1B42CE8F29B4375D001B9346 /* HomeRadioController.swift in Sources */,
 				1B3119982A489993002DCEEF /* PodcastTableViewScreen.swift in Sources */,
 				B44CB98F2A5CF4A700F73413 /* DonationController.swift in Sources */,
-				B44318422A6A2E4200772C1E /* PodcastTitleRowCell.swift in Sources */,
 				1B24FEB82A3CE4E600E15A8B /* PodcastCollectionViewCell.swift in Sources */,
 				F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */,
 				1B3119962A48993B002DCEEF /* PodcastTableViewCell.swift in Sources */,
@@ -458,13 +461,14 @@
 				1B24FEBC2A3D7CA400E15A8B /* PodcastModel.swift in Sources */,
 				6BEE66D829D3BEC70018B4A1 /* BaseView.swift in Sources */,
 				B44CB9912A5CF4B100F73413 /* DonationScreen.swift in Sources */,
+				B48F77122A70CEE800875DAD /* PodcastWebViewViewModel.swift in Sources */,
 				F885B2D829AE752F0081BF71 /* Service.swift in Sources */,
 				1BCB97CC2A2D96820052C623 /* PodcastCollectionController.swift in Sources */,
 				B44ACEBE2A5E0F640020430B /* DonationViewModel.swift in Sources */,
 				B432B81C2A5D8B2E00B313D1 /* TabBarController.swift in Sources */,
 				1B5716262A3EC93F00ED24E5 /* PodcastWebViewController.swift in Sources */,
 				F885B2C729AAD9570081BF71 /* RadioScreen.swift in Sources */,
-				B41EF0D82A662B11006E753B /* PodcastImageRowCell.swift in Sources */,
+				B41EF0D82A662B11006E753B /* PodcastTitleRowCell.swift in Sources */,
 				1B5716282A3EC97F00ED24E5 /* PodcastWebviewScreen.swift in Sources */,
 				1B24FEB32A3CE1F300E15A8B /* PodcastCollectionViewScreen.swift in Sources */,
 				B44ACEBB2A5E0F510020430B /* DonationModel.swift in Sources */,

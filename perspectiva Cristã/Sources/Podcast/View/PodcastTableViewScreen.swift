@@ -15,7 +15,6 @@ class PodcastTableViewScreen: BaseView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         tableView.register(PodcastTableViewCell.self, forCellReuseIdentifier: PodcastTableViewCell.identifier)
-        tableView.register(PodcastImageRowCell.self, forCellReuseIdentifier: PodcastImageRowCell.identifier)
         tableView.register(PodcastTitleRowCell.self, forCellReuseIdentifier: PodcastTitleRowCell.identifier)
         return tableView
     }()
@@ -32,14 +31,10 @@ class PodcastTableViewScreen: BaseView {
     override func setupConstrainst() {
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo: topAnchor, constant: -100),
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: -95),
             tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
-    
-    
 }
-
