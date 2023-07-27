@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import HPParallaxHeader
 
 class PodcastTableViewViewModel {
     
@@ -72,20 +73,10 @@ class PodcastTableViewViewModel {
     }
     
     func populateViewModel() {
+        backButton()
         service?.requestSpotifyApi(ids: items) { episodes in
             self.dataToTableView(data: episodes)
-            for episodes in episodes.playlist.items {
-                self.dataImage(episodeData: episodes)
-            }
-        }
-    }
-    
-    func callToCustomHeaderTableView() {
-        if let bounds = vcp?.view.layer.bounds {
-            let width = Int(bounds.width)
-            let height = 450
-            customHeader = CustomHeaderView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-            screen?.tableView.tableHeaderView = customHeader
+            self.dataImage(episodeData: episodes)
         }
     }
     
@@ -207,7 +198,7 @@ class PodcastTableViewViewModel {
         cell.titleLabel.text = "\(separatedString)"
     }
     
-    private func dataImage(episodeData: SpotifyTrack) {
+    private func dataImage(episodeData: SpotifyPlaylistResponse) {
         if let imgURL = URL(string: imageData ) {
             customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
                 image?.getColors { colors in

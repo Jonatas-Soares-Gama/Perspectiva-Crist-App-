@@ -36,6 +36,7 @@
 		B48F77122A70CEE800875DAD /* PodcastWebViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */; };
 		B4C055CD2A7244220011C7BD /* PodcastTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C055CC2A7244220011C7BD /* PodcastTableViewViewModel.swift */; };
 		B4C055CF2A72445C0011C7BD /* PodcastFirstRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C055CE2A72445C0011C7BD /* PodcastFirstRowCell.swift */; };
+		B4C055D32A725A020011C7BD /* HPParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = B4C055D22A725A020011C7BD /* HPParallaxHeader */; };
 		B4C505E72A716B95000E89B3 /* BlurredImageViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C505E62A716B94000E89B3 /* BlurredImageViewComponent.swift */; };
 		F839E59529B6CBB60085AB38 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59429B6CBB60085AB38 /* File.swift */; };
 		F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */; };
@@ -92,6 +93,7 @@
 			files = (
 				1BB7BBD02A1A9EA500D8C48C /* SDWebImage in Frameworks */,
 				1BB7BBD72A1B147200D8C48C /* Alamofire in Frameworks */,
+				B4C055D32A725A020011C7BD /* HPParallaxHeader in Frameworks */,
 				1B792F582A1C539D00AAE2F3 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +380,7 @@
 				1BB7BBCF2A1A9EA500D8C48C /* SDWebImage */,
 				1BB7BBD62A1B147200D8C48C /* Alamofire */,
 				1B792F572A1C539D00AAE2F3 /* AlamofireImage */,
+				B4C055D22A725A020011C7BD /* HPParallaxHeader */,
 			);
 			productName = "perspectiva Cristã";
 			productReference = F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */;
@@ -411,6 +414,7 @@
 				1BB7BBCE2A1A9EA500D8C48C /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				1BB7BBD52A1B147200D8C48C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				1B792F562A1C539D00AAE2F3 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				B4C055D12A725A020011C7BD /* XCRemoteSwiftPackageReference "HPParallaxHeader" */,
 			);
 			productRefGroup = F885B2AB29AAD5BB0081BF71 /* Products */;
 			projectDirPath = "";
@@ -704,6 +708,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B4C055D12A725A020011C7BD /* XCRemoteSwiftPackageReference "HPParallaxHeader" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ngochiencse/HPParallaxHeader";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -721,6 +733,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1BB7BBD52A1B147200D8C48C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		B4C055D22A725A020011C7BD /* HPParallaxHeader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4C055D12A725A020011C7BD /* XCRemoteSwiftPackageReference "HPParallaxHeader" */;
+			productName = HPParallaxHeader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

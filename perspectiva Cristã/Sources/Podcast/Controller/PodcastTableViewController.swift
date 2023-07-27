@@ -7,8 +7,11 @@
 
 import UIKit
 import SDWebImage
+import HPParallaxHeader
 
-class PodcastTableViewController: UIViewController, UIViewControllerTransitioningDelegate, UIScrollViewDelegate {
+
+class PodcastTableViewController: UIViewController, UIViewControllerTransitioningDelegate {
+    
     
     private let data: Int
     init(data: Int) {
@@ -26,10 +29,8 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     private var customHeaderView: CustomHeaderView?
     private var viewModel: PodcastTableViewViewModel?
     private var service = Service()
-    var isFloating = false
+    let headerView = UIImageView()
 
-
-    
     
     override func loadView() {
         self.view = screen
@@ -41,11 +42,19 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
         initViewModel()
         viewModel?.initCollectionItens(with: data)
         viewModel?.populateViewModel()
-        viewModel?.backButton()
-        viewModel?.callToCustomHeaderTableView()
+        callToCustomHeaderTableView()
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
+    
+    func callToCustomHeaderTableView() {
+        customHeaderView = CustomHeaderView()
 
+        
+        screen.tableView.parallaxHeader.view = customHeaderView
+        screen.tableView.parallaxHeader.height = 360
+        screen.tableView.parallaxHeader.mode = .topFill
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -63,8 +72,6 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
 }
 
 extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate {
-    
-
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         viewModel?.navigationBarTitle(scrollView: scrollView)

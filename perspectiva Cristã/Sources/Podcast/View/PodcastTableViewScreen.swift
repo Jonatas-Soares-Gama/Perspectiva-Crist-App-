@@ -31,7 +31,7 @@ class PodcastTableViewScreen: BaseView {
     override func setupConstrainst() {
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo: topAnchor, constant: -100),
+            tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
