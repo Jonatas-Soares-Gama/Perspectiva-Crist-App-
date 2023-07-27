@@ -27,15 +27,15 @@
 		1BCB97CC2A2D96820052C623 /* PodcastCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCB97CB2A2D96820052C623 /* PodcastCollectionViewController.swift */; };
 		6BEE66D529D3BC300018B4A1 /* RadioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEE66D429D3BC300018B4A1 /* RadioViewModel.swift */; };
 		6BEE66D829D3BEC70018B4A1 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEE66D729D3BEC70018B4A1 /* BaseView.swift */; };
-		B41EF0D82A662B11006E753B /* PodcastFirstRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41EF0D72A662B11006E753B /* PodcastFirstRowCell.swift */; };
+		B41EF0D82A662B11006E753B /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41EF0D72A662B11006E753B /* CustomHeaderView.swift */; };
 		B432B81C2A5D8B2E00B313D1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432B81B2A5D8B2E00B313D1 /* TabBarController.swift */; };
 		B44ACEBB2A5E0F510020430B /* DonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44ACEBA2A5E0F510020430B /* DonationModel.swift */; };
 		B44ACEBE2A5E0F640020430B /* DonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44ACEBD2A5E0F640020430B /* DonationViewModel.swift */; };
 		B44CB98F2A5CF4A700F73413 /* DonationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB98E2A5CF4A700F73413 /* DonationController.swift */; };
 		B44CB9912A5CF4B100F73413 /* DonationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB9902A5CF4B000F73413 /* DonationScreen.swift */; };
-		B45E8B132A643C90004D4210 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B45E8B122A643C90004D4210 /* SwiftSoup */; };
-		B48F77102A70CEB000875DAD /* PodcastTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */; };
 		B48F77122A70CEE800875DAD /* PodcastWebViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */; };
+		B4C055CD2A7244220011C7BD /* PodcastTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C055CC2A7244220011C7BD /* PodcastTableViewViewModel.swift */; };
+		B4C055CF2A72445C0011C7BD /* PodcastFirstRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C055CE2A72445C0011C7BD /* PodcastFirstRowCell.swift */; };
 		B4C505E72A716B95000E89B3 /* BlurredImageViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C505E62A716B94000E89B3 /* BlurredImageViewComponent.swift */; };
 		F839E59529B6CBB60085AB38 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59429B6CBB60085AB38 /* File.swift */; };
 		F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */; };
@@ -64,14 +64,15 @@
 		1BCB97CB2A2D96820052C623 /* PodcastCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastCollectionViewController.swift; sourceTree = "<group>"; };
 		6BEE66D429D3BC300018B4A1 /* RadioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioViewModel.swift; sourceTree = "<group>"; };
 		6BEE66D729D3BEC70018B4A1 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		B41EF0D72A662B11006E753B /* PodcastFirstRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastFirstRowCell.swift; sourceTree = "<group>"; };
+		B41EF0D72A662B11006E753B /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		B432B81B2A5D8B2E00B313D1 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B44ACEBA2A5E0F510020430B /* DonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationModel.swift; sourceTree = "<group>"; };
 		B44ACEBD2A5E0F640020430B /* DonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewModel.swift; sourceTree = "<group>"; };
 		B44CB98E2A5CF4A700F73413 /* DonationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationController.swift; sourceTree = "<group>"; };
 		B44CB9902A5CF4B000F73413 /* DonationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationScreen.swift; sourceTree = "<group>"; };
-		B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTableViewModel.swift; sourceTree = "<group>"; };
 		B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastWebViewViewModel.swift; sourceTree = "<group>"; };
+		B4C055CC2A7244220011C7BD /* PodcastTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTableViewViewModel.swift; sourceTree = "<group>"; };
+		B4C055CE2A72445C0011C7BD /* PodcastFirstRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastFirstRowCell.swift; sourceTree = "<group>"; };
 		B4C505E62A716B94000E89B3 /* BlurredImageViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewComponent.swift; sourceTree = "<group>"; };
 		F839E59429B6CBB60085AB38 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "perspectiva Cristã.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,7 +91,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB7BBD02A1A9EA500D8C48C /* SDWebImage in Frameworks */,
-				B45E8B132A643C90004D4210 /* SwiftSoup in Frameworks */,
 				1BB7BBD72A1B147200D8C48C /* Alamofire in Frameworks */,
 				1B792F582A1C539D00AAE2F3 /* AlamofireImage in Frameworks */,
 			);
@@ -104,7 +104,7 @@
 			children = (
 				1B24FEB72A3CE4E600E15A8B /* PodcastCollectionViewCell.swift */,
 				1B3119952A48993B002DCEEF /* PodcastTableViewCell.swift */,
-				B41EF0D72A662B11006E753B /* PodcastFirstRowCell.swift */,
+				B4C055CE2A72445C0011C7BD /* PodcastFirstRowCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -185,8 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				1B5716232A3EB57900ED24E5 /* PodcastCollectionViewViewModel.swift */,
-				B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */,
 				B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */,
+				B4C055CC2A7244220011C7BD /* PodcastTableViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -194,6 +194,7 @@
 		1B503D242A4B801E0052AC9B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B41EF0D72A662B11006E753B /* CustomHeaderView.swift */,
 				1B24FEB22A3CE1F300E15A8B /* PodcastCollectionViewScreen.swift */,
 				1B5716272A3EC97F00ED24E5 /* PodcastWebviewScreen.swift */,
 				1B3119972A489993002DCEEF /* PodcastTableViewScreen.swift */,
@@ -235,13 +236,6 @@
 				1B3119932A4898C9002DCEEF /* BaseTableViewCell.swift */,
 			);
 			path = BaseView;
-			sourceTree = "<group>";
-		};
-		B44318432A6CBAFD00772C1E /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		B44ACEB82A5E0F3F0020430B /* Model */ = {
@@ -323,7 +317,6 @@
 		F885B2AC29AAD5BB0081BF71 /* perspectiva Cristã */ = {
 			isa = PBXGroup;
 			children = (
-				B44318432A6CBAFD00772C1E /* Components */,
 				1B24FEBD2A3D821F00E15A8B /* LaunchScreen.storyboard */,
 				1BB7BBD22A1B11C300D8C48C /* Delegates */,
 				F839E59329B6CB9F0085AB38 /* Extension-Utilities */,
@@ -385,7 +378,6 @@
 				1BB7BBCF2A1A9EA500D8C48C /* SDWebImage */,
 				1BB7BBD62A1B147200D8C48C /* Alamofire */,
 				1B792F572A1C539D00AAE2F3 /* AlamofireImage */,
-				B45E8B122A643C90004D4210 /* SwiftSoup */,
 			);
 			productName = "perspectiva Cristã";
 			productReference = F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */;
@@ -419,7 +411,6 @@
 				1BB7BBCE2A1A9EA500D8C48C /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				1BB7BBD52A1B147200D8C48C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				1B792F562A1C539D00AAE2F3 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
-				B45E8B112A643C90004D4210 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = F885B2AB29AAD5BB0081BF71 /* Products */;
 			projectDirPath = "";
@@ -447,12 +438,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B48F77102A70CEB000875DAD /* PodcastTableViewModel.swift in Sources */,
 				1B5716242A3EB57900ED24E5 /* PodcastCollectionViewViewModel.swift in Sources */,
 				1B42CE8F29B4375D001B9346 /* HomeRadioController.swift in Sources */,
+				B4C055CF2A72445C0011C7BD /* PodcastFirstRowCell.swift in Sources */,
 				1B3119982A489993002DCEEF /* PodcastTableViewScreen.swift in Sources */,
 				B44CB98F2A5CF4A700F73413 /* DonationController.swift in Sources */,
 				1B24FEB82A3CE4E600E15A8B /* PodcastCollectionViewCell.swift in Sources */,
+				B4C055CD2A7244220011C7BD /* PodcastTableViewViewModel.swift in Sources */,
 				F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */,
 				1B3119962A48993B002DCEEF /* PodcastTableViewCell.swift in Sources */,
 				1B3119942A4898C9002DCEEF /* BaseTableViewCell.swift in Sources */,
@@ -471,7 +463,7 @@
 				B432B81C2A5D8B2E00B313D1 /* TabBarController.swift in Sources */,
 				1B5716262A3EC93F00ED24E5 /* PodcastWebViewController.swift in Sources */,
 				F885B2C729AAD9570081BF71 /* RadioScreen.swift in Sources */,
-				B41EF0D82A662B11006E753B /* PodcastFirstRowCell.swift in Sources */,
+				B41EF0D82A662B11006E753B /* CustomHeaderView.swift in Sources */,
 				1B5716282A3EC97F00ED24E5 /* PodcastWebviewScreen.swift in Sources */,
 				B4C505E72A716B95000E89B3 /* BlurredImageViewComponent.swift in Sources */,
 				1B24FEB32A3CE1F300E15A8B /* PodcastCollectionViewScreen.swift in Sources */,
@@ -712,14 +704,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		B45E8B112A643C90004D4210 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -737,11 +721,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1BB7BBD52A1B147200D8C48C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		B45E8B122A643C90004D4210 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B45E8B112A643C90004D4210 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

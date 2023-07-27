@@ -23,9 +23,11 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     private var screen = PodcastTableViewScreen()
     private var screenTV = PodcastTableViewCell()
     private var screenTVR: PodcastFirstRowCell?
+    private var customHeaderView: CustomHeaderView?
     private var viewModel: PodcastTableViewViewModel?
     private var service = Service()
     var isFloating = false
+
 
     
     
@@ -40,6 +42,7 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
         viewModel?.initCollectionItens(with: data)
         viewModel?.populateViewModel()
         viewModel?.backButton()
+        viewModel?.callToCustomHeaderTableView()
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
@@ -55,7 +58,7 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     }
     
     private func initViewModel() {
-        viewModel = PodcastTableViewViewModel(vcp: self, screen: screen, screenTV: screenTV, screenTVR: screenTVR, service: service)
+        viewModel = PodcastTableViewViewModel(vcp: self, screen: screen, screenTV: screenTV, screenTVR: screenTVR, customHeader: customHeaderView, service: service)
     }
 }
 
@@ -77,7 +80,7 @@ extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = viewModel?.tableViewContent(indexPath: indexPath)  else {
+        guard let cell = viewModel?.tableViewContent(tableView: tableView, indexPath: indexPath)  else {
             return UITableViewCell()
         }
         return cell

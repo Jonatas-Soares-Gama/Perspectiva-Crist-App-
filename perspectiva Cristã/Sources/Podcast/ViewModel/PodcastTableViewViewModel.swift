@@ -14,18 +14,20 @@ class PodcastTableViewViewModel {
     private var screen:  PodcastTableViewScreen?
     private var screenTV: PodcastTableViewCell?
     private var screenTVR: PodcastFirstRowCell?
+    private var customHeader: CustomHeaderView?
     private var service: Service?
     private var items = String()
     private var dataPlaylist: [SpotifyTrack] = []
     private var imageData = String()
     
     
-    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, service: Service?) {
+    init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, customHeader: CustomHeaderView?, service: Service?) {
         self.vcp = vcp
         self.screen = screen
         self.screenTV = screenTV
         self.screenTVR = screenTVR
         self.service = service
+        self.customHeader = customHeader
     }
     
     func initCollectionItens(with choice: Int) {
@@ -72,6 +74,18 @@ class PodcastTableViewViewModel {
     func populateViewModel() {
         service?.requestSpotifyApi(ids: items) { episodes in
             self.dataToTableView(data: episodes)
+            for episodes in episodes.playlist.items {
+                self.dataImage(episodeData: episodes)
+            }
+        }
+    }
+    
+    func callToCustomHeaderTableView() {
+        if let bounds = vcp?.view.layer.bounds {
+            let width = Int(bounds.width)
+            let height = 450
+            customHeader = CustomHeaderView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+            screen?.tableView.tableHeaderView = customHeader
         }
     }
     
@@ -87,17 +101,16 @@ class PodcastTableViewViewModel {
         return dataPlaylist.count + 1
     }
     
-    func tableViewContent(indexPath: IndexPath) -> UITableViewCell {
+    func tableViewContent(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastFirstRowCell.identifier, for: indexPath) as! PodcastFirstRowCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: PodcastFirstRowCell.identifier, for: indexPath) as! PodcastFirstRowCell
             if dataPlaylist.count > 0 {
                 let titleData = dataPlaylist[0]
                 firstRowTitle(cell, with: titleData)
-                DataImage(cell, PodCastwith: titleData)
             }
             return cell
         } else {
-            let cell = screen?.tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
             let episodeIndex = indexPath.row
             let episodeData = dataPlaylist[episodeIndex - 1]
             DataLabels(cell, with: episodeData)
@@ -194,38 +207,33 @@ class PodcastTableViewViewModel {
         cell.titleLabel.text = "\(separatedString)"
     }
     
-    func DataImage(_ cell: PodcastFirstRowCell, PodCastwith episodeData: SpotifyTrack) {
+    private func dataImage(episodeData: SpotifyTrack) {
         if let imgURL = URL(string: imageData ) {
-            cell.episodeImage.sd_setImage(with: imgURL)
-            cell.bgImage.sd_setImage(with: imgURL)
-        }
-    }
-    
-    func configureCallsTableViewInWebView(indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            //            do nothing
-        } else {
-            let episode = dataPlaylist[indexPath.item - 1]
-            if #available(iOS 15.0, *) {
-                let vc = PodcastWebViewController(data: episode.track.id)
-                let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("myCustomDetent")) { [weak self] context in
-                    guard let self = self else { return 0.0 }
-                    return (self.vcp?.view.frame.height ?? 0) - 500.0
+            customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
+                image?.getColors { colors in
+                    self.customHeader?.container.backgroundColor = colors?.primary
                 }
-                
-                if let sheet = vc.sheetPresentationController {
-                    sheet.detents = [ customDetent ]
-                }
-                vcp?.navigationController?.present(vc, animated: true)
             }
         }
     }
     
-    func sizeOfRows(indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 500
-        }  else {
-            return 90
+    func configureCallsTableViewInWebView(indexPath: IndexPath) {
+            let episode = dataPlaylist[indexPath.item - 1]
+        if #available(iOS 15.0, *) {
+            let vc = PodcastWebViewController(data: episode.track.id)
+            let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("myCustomDetent")) { [weak self] context in
+                guard let self = self else { return 0.0 }
+                return (self.vcp?.view.frame.height ?? 0) - 500.0
+            }
+            
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [ customDetent ]
+            }
+            vcp?.navigationController?.present(vc, animated: true)
         }
+    }
+    
+    func sizeOfRows(indexPath: IndexPath) -> CGFloat {
+        return 90
     }
 }
