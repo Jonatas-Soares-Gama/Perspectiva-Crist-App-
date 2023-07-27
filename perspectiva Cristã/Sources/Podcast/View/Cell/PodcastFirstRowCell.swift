@@ -20,8 +20,10 @@ class PodcastFirstRowCell: BaseTableViewCell {
     
     lazy var bgImage: UIImageView = {
         let img = UIImageView()
-        img.alpha = 0.5
         img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        img.alpha = 0.85
+        img.contentMode = .scaleAspectFill
         return img
     }()
     
@@ -31,6 +33,7 @@ class PodcastFirstRowCell: BaseTableViewCell {
         img.layer.shadowOpacity = 0.7
         img.layer.shadowOffset = CGSize(width: 8, height: 6)
         img.layer.shadowRadius = 4
+        img.contentMode = .scaleAspectFill
         img.clipsToBounds = false
         return img
     }()
@@ -59,7 +62,8 @@ class PodcastFirstRowCell: BaseTableViewCell {
     }
     
     override func setupConstraints() {
-        NSLayoutConstraint.activate([
+        
+                NSLayoutConstraint.activate([
             
             container.topAnchor.constraint(equalTo: topAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -81,8 +85,12 @@ class PodcastFirstRowCell: BaseTableViewCell {
             
             episodeImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             episodeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            episodeImage.heightAnchor.constraint(equalToConstant: 270),
-            episodeImage.widthAnchor.constraint(equalToConstant: 270),
+            episodeImage.widthAnchor.constraint(equalToConstant: 300),
+            episodeImage.heightAnchor.constraint(equalToConstant: 300)
         ])
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 300, height: 300)
     }
 }

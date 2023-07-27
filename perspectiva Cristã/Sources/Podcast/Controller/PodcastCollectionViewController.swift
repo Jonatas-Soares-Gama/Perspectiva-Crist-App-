@@ -23,7 +23,6 @@ class PodcastCollectionViewController: UIViewController {
         super.viewDidLoad()
         initViewModel()
         self.screen.configCollectionViewProtocols(delegate: self, dataSource: self)
-        view.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         service.requestSpotifyToken { token in
             self.viewModel?.timerTobearerToken(bearer: token)
         }

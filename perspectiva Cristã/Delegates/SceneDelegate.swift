@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         safeWindow.frame = UIScreen.main.bounds
         safeWindow.rootViewController = TabBarController()
         safeWindow.makeKeyAndVisible()
-        
+        safeWindow.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         window = safeWindow
     }
 

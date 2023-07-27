@@ -28,7 +28,6 @@ class PodcastWebViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1.0)
         initViewModel()
         viewModel?.initWebView(data: data)
         viewModel?.delayOfView()

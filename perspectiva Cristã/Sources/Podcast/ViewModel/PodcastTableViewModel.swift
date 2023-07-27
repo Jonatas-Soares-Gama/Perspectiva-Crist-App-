@@ -58,6 +58,17 @@ class PodcastTableViewViewModel {
         }
     }
     
+    func backButton() {
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(backAction))
+        backButton.image = UIImage(systemName: "chevron.backward")
+        vcp?.navigationItem.leftBarButtonItem = backButton
+    }
+
+    
+    @objc func backAction() {
+        vcp?.navigationController?.popViewController(animated: true)
+    }
+    
     func populateViewModel() {
         service?.requestSpotifyApi(ids: items) { episodes in
             self.dataToTableView(data: episodes)
@@ -103,38 +114,33 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func effectFadeOut(scrollView: UIScrollView) {
-        if let indexPath = screen?.tableView.indexPathsForVisibleRows?.first {
-            let cell = screen?.tableView.cellForRow(at: indexPath)
-            if indexPath.row == 0 {
-                let alpha = 1.0 - scrollView.contentOffset.y / (cell?.frame.height ?? 0)
-                cell?.alpha = alpha
-            }
-        }
-    }
     
     func setTransparentNavigationBar() {
         vcp?.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         vcp?.navigationController?.navigationBar.shadowImage = UIImage()
-        vcp?.navigationController?.setNavigationBarHidden(false, animated: false)
         vcp?.navigationController?.navigationBar.backgroundColor = .clear
-        vcp?.navigationController?.navigationBar.isTranslucent = true
         vcp?.navigationController?.navigationBar.tintColor = .white
-        vcp?.navigationController?.navigationBar.backItem?.title = ""
         vcp?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         vcp?.navigationItem.title = ""
     }
     
-    
+    func tratamentImageOfNavigationBar() {
+        let image = UIImageView()
+        if let imgURL = URL(string: imageData ) {
+            image.sd_setImage(with: imgURL) { (image, _, _, _) in                self.vcp?.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+            }
+        }
+    }
+
     private func setNotTransparentNavigationBar() {
-        vcp?.navigationController?.setNavigationBarHidden(false, animated: false)
-        vcp?.navigationController?.navigationBar.tintColor = .white
-        vcp?.navigationController?.navigationBar.backgroundColor = .blue
-        vcp?.navigationController?.navigationBar.backItem?.title = ""
+        tratamentImageOfNavigationBar()
+            vcp?.navigationController?.navigationBar.shadowImage = nil
+            vcp?.navigationController?.navigationBar.tintColor = .white
+            vcp?.navigationController?.navigationBar.isTranslucent = true
+            vcp?.navigationController?.navigationBar.backItem?.title = ""
     }
     
     private func separetedString() {
-        if let vcp = vcp {
             for i in dataPlaylist {
                 let string = i.track.name
                 let separators = [" - ", "#", "|"]
@@ -144,11 +150,10 @@ class PodcastTableViewViewModel {
                     if let firstComponent = components.first {
                         separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
-                    vcp.navigationItem.title = "\(separatedString)"
+                    vcp?.navigationItem.title = "\(separatedString)"
                 }
             }
         }
-    }
     
     
     func navigationBarTitle(scrollView: UIScrollView) {
@@ -170,8 +175,8 @@ class PodcastTableViewViewModel {
     
     func DataLabels(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
         cell.titleLabel.text = episodeData.track.name
-        for i in episodeData.track.artists {
-            cell.subTitleLabel.text = i.name
+        for episodesNames in episodeData.track.artists {
+            cell.subTitleLabel.text = episodesNames.name
         }
     }
     
@@ -218,7 +223,7 @@ class PodcastTableViewViewModel {
     
     func sizeOfRows(indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 400
+            return 500
         }  else {
             return 90
         }

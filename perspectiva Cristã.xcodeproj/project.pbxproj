@@ -36,6 +36,7 @@
 		B45E8B132A643C90004D4210 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B45E8B122A643C90004D4210 /* SwiftSoup */; };
 		B48F77102A70CEB000875DAD /* PodcastTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */; };
 		B48F77122A70CEE800875DAD /* PodcastWebViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */; };
+		B4C505E72A716B95000E89B3 /* BlurredImageViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C505E62A716B94000E89B3 /* BlurredImageViewComponent.swift */; };
 		F839E59529B6CBB60085AB38 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59429B6CBB60085AB38 /* File.swift */; };
 		F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */; };
 		F885B2B029AAD5BB0081BF71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AF29AAD5BB0081BF71 /* SceneDelegate.swift */; };
@@ -71,6 +72,7 @@
 		B44CB9902A5CF4B000F73413 /* DonationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationScreen.swift; sourceTree = "<group>"; };
 		B48F770F2A70CEB000875DAD /* PodcastTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTableViewModel.swift; sourceTree = "<group>"; };
 		B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastWebViewViewModel.swift; sourceTree = "<group>"; };
+		B4C505E62A716B94000E89B3 /* BlurredImageViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewComponent.swift; sourceTree = "<group>"; };
 		F839E59429B6CBB60085AB38 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "perspectiva Cristã.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -172,9 +174,9 @@
 		1B503D222A4B801B0052AC9B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1B5716252A3EC93F00ED24E5 /* PodcastWebViewController.swift */,
 				1BCB97CB2A2D96820052C623 /* PodcastCollectionViewController.swift */,
 				1B3119992A489BF8002DCEEF /* PodcastTableViewController.swift */,
+				1B5716252A3EC93F00ED24E5 /* PodcastWebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -206,13 +208,6 @@
 				1B24FEBB2A3D7CA400E15A8B /* PodcastModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		1B503D262A4B9A920052AC9B /* Json */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Json;
 			sourceTree = "<group>";
 		};
 		1B72BCAA2A36B0FA00845D72 /* TabBarController */ = {
@@ -293,6 +288,14 @@
 			path = "New Group/New Group/View";
 			sourceTree = "<group>";
 		};
+		B4C505E82A716BAB000E89B3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B4C505E62A716B94000E89B3 /* BlurredImageViewComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		F839E59329B6CB9F0085AB38 /* Extension-Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,7 +350,7 @@
 		F885B2C229AAD8FA0081BF71 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1B503D262A4B9A920052AC9B /* Json */,
+				B4C505E82A716BAB000E89B3 /* Components */,
 				F885B2B629AAD5BD0081BF71 /* Assets.xcassets */,
 				1BB7BBD32A1B11DA00D8C48C /* UIImageColors.swift */,
 			);
@@ -470,6 +473,7 @@
 				F885B2C729AAD9570081BF71 /* RadioScreen.swift in Sources */,
 				B41EF0D82A662B11006E753B /* PodcastFirstRowCell.swift in Sources */,
 				1B5716282A3EC97F00ED24E5 /* PodcastWebviewScreen.swift in Sources */,
+				B4C505E72A716B95000E89B3 /* BlurredImageViewComponent.swift in Sources */,
 				1B24FEB32A3CE1F300E15A8B /* PodcastCollectionViewScreen.swift in Sources */,
 				B44ACEBB2A5E0F510020430B /* DonationModel.swift in Sources */,
 				1BB7BBD42A1B11DA00D8C48C /* UIImageColors.swift in Sources */,

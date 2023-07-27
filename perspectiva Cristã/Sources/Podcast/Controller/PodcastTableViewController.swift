@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class PodcastTableViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class PodcastTableViewController: UIViewController, UIViewControllerTransitioningDelegate, UIScrollViewDelegate {
     
     private let data: Int
     init(data: Int) {
@@ -25,6 +25,8 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     private var screenTVR: PodcastFirstRowCell?
     private var viewModel: PodcastTableViewViewModel?
     private var service = Service()
+    var isFloating = false
+
     
     
     override func loadView() {
@@ -33,26 +35,23 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         screen.configTableViewProtocols(delegate: self, dataSource: self)
         initViewModel()
         viewModel?.initCollectionItens(with: data)
         viewModel?.populateViewModel()
-        viewModel?.setTransparentNavigationBar()
+        viewModel?.backButton()
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
-        
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        
-        
     }
     
     private func initViewModel() {
@@ -62,9 +61,10 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
 
 extension PodcastTableViewController: UITableViewDataSource, UITableViewDelegate {
     
+
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         viewModel?.navigationBarTitle(scrollView: scrollView)
-        viewModel?.effectFadeOut(scrollView: scrollView)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
