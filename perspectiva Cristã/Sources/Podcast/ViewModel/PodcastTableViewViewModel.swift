@@ -66,17 +66,26 @@ class PodcastTableViewViewModel {
         backButton.image = UIImage(systemName: "chevron.backward")
         vcp?.navigationItem.leftBarButtonItem = backButton
     }
-
+    
     
     @objc func backAction() {
         vcp?.navigationController?.popViewController(animated: true)
     }
     
+    func callToCustomHeaderTableView() {
+        customHeader = CustomHeaderView()
+        
+        screen?.tableView.parallaxHeader.view = customHeader
+        screen?.tableView.parallaxHeader.height = 360
+        screen?.tableView.parallaxHeader.mode = .topFill
+    }
+    
     func populateViewModel() {
+        callToCustomHeaderTableView()
         backButton()
         service?.requestSpotifyApi(ids: items) { episodes in
             self.dataToTableView(data: episodes)
-            self.dataImage(episodeData: episodes)
+            self.dataImage()
         }
     }
     
@@ -135,29 +144,29 @@ class PodcastTableViewViewModel {
             }
         }
     }
-
+    
     private func setNotTransparentNavigationBar() {
         tratamentImageOfNavigationBar()
-            vcp?.navigationController?.navigationBar.shadowImage = nil
-            vcp?.navigationController?.navigationBar.tintColor = .white
-            vcp?.navigationController?.navigationBar.isTranslucent = true
-            vcp?.navigationController?.navigationBar.backItem?.title = ""
+        vcp?.navigationController?.navigationBar.shadowImage = nil
+        vcp?.navigationController?.navigationBar.tintColor = .white
+        vcp?.navigationController?.navigationBar.isTranslucent = true
+        vcp?.navigationController?.navigationBar.backItem?.title = ""
     }
     
     private func separetedString() {
-            for i in dataPlaylist {
-                let string = i.track.name
-                let separators = [" - ", "#", "|"]
-                var separatedString = string
-                for separator in separators {
-                    let components = separatedString.components(separatedBy: separator)
-                    if let firstComponent = components.first {
-                        separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
-                    }
-                    vcp?.navigationItem.title = "\(separatedString)"
+        for i in dataPlaylist {
+            let string = i.track.name
+            let separators = [" - ", "#", "|"]
+            var separatedString = string
+            for separator in separators {
+                let components = separatedString.components(separatedBy: separator)
+                if let firstComponent = components.first {
+                    separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
                 }
+                vcp?.navigationItem.title = "\(separatedString)"
             }
         }
+    }
     
     
     func navigationBarTitle(scrollView: UIScrollView) {
@@ -198,29 +207,32 @@ class PodcastTableViewViewModel {
         cell.titleLabel.text = "\(separatedString)"
     }
     
-    private func dataImage(episodeData: SpotifyPlaylistResponse) {
+    func dataImage() {
         if let imgURL = URL(string: imageData ) {
             customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
                 image?.getColors { colors in
-                    self.customHeader?.container.backgroundColor = colors?.primary
+                    self.customHeader?.container.backgroundColor = colors?.background
                 }
             }
         }
     }
     
     func configureCallsTableViewInWebView(indexPath: IndexPath) {
+        if indexPath.row == 0 {
+        } else {
             let episode = dataPlaylist[indexPath.item - 1]
-        if #available(iOS 15.0, *) {
-            let vc = PodcastWebViewController(data: episode.track.id)
-            let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("myCustomDetent")) { [weak self] context in
-                guard let self = self else { return 0.0 }
-                return (self.vcp?.view.frame.height ?? 0) - 500.0
+            if #available(iOS 15.0, *) {
+                let vc = PodcastWebViewController(data: episode.track.id)
+                let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("myCustomDetent")) { [weak self] context in
+                    guard let self = self else { return 0.0 }
+                    return (self.vcp?.view.frame.height ?? 0) - 500.0
+                }
+                
+                if let sheet = vc.sheetPresentationController {
+                    sheet.detents = [ customDetent ]
+                }
+                vcp?.navigationController?.present(vc, animated: true)
             }
-            
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [ customDetent ]
-            }
-            vcp?.navigationController?.present(vc, animated: true)
         }
     }
     

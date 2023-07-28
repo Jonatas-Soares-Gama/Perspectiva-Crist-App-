@@ -13,14 +13,12 @@ class CustomHeaderView: BaseView {
     lazy var container: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
         view.alpha = 0.5
-        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     lazy var episodeImage: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "grandesperguntas")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.layer.shadowOpacity = 0.7
         img.layer.shadowOffset = CGSize(width: 8, height: 6)
@@ -32,7 +30,7 @@ class CustomHeaderView: BaseView {
     
     override func addSubviews() {
         addSubview(container)
-        container.addSubview(episodeImage)
+        addSubview(episodeImage)
     }
     
     override func setupConstrainst() {
@@ -45,8 +43,8 @@ class CustomHeaderView: BaseView {
             
             episodeImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             episodeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            episodeImage.widthAnchor.constraint(equalToConstant: 260),
-            episodeImage.heightAnchor.constraint(equalToConstant: 260)
+            episodeImage.widthAnchor.constraint(equalToConstant: 300),
+            episodeImage.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
 }

@@ -42,18 +42,7 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
         initViewModel()
         viewModel?.initCollectionItens(with: data)
         viewModel?.populateViewModel()
-        callToCustomHeaderTableView()
         navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-    
-    func callToCustomHeaderTableView() {
-        customHeaderView = CustomHeaderView()
-
-        
-        screen.tableView.parallaxHeader.view = customHeaderView
-        screen.tableView.parallaxHeader.height = 360
-        screen.tableView.parallaxHeader.mode = .topFill
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
