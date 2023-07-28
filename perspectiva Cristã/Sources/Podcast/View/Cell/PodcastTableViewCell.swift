@@ -20,6 +20,18 @@ class PodcastTableViewCell: BaseTableViewCell {
         return view
     }()
     
+    lazy var episodeImage: UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "grandesperguntas")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.layer.shadowOpacity = 0.7
+        img.layer.shadowOffset = CGSize(width: 4, height: 3)
+        img.layer.shadowRadius = 4
+        img.contentMode = .scaleAspectFill
+        img.clipsToBounds = false
+        return img
+    }()
+    
     lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.textColor = .white
@@ -37,13 +49,23 @@ class PodcastTableViewCell: BaseTableViewCell {
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    lazy var episodesDuration: UILabel = {
+       let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 12)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
         
     }()
     
     override func addSubviews() {
         addSubview(container)
+        container.addSubview(episodeImage)
         container.addSubview(titleLabel)
         container.addSubview(subTitleLabel)
+        container.addSubview(episodesDuration)
     }
     
     override func setupConstraints() {
@@ -53,13 +75,20 @@ class PodcastTableViewCell: BaseTableViewCell {
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -5),
+            episodeImage.bottomAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: -8),
+            episodeImage.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 5),
+            episodeImage.heightAnchor.constraint(equalToConstant: 40),
+            episodeImage.widthAnchor.constraint(equalToConstant: 40),
             
-            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            subTitleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 15),
-            subTitleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -5)
+            titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: episodeImage.trailingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+
+            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            subTitleLabel.leadingAnchor.constraint(equalTo: episodeImage.trailingAnchor, constant: 10),
+            
+            episodesDuration.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            episodesDuration.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
     }
 }

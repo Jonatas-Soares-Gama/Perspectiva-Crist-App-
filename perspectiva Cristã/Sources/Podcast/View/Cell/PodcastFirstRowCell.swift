@@ -21,8 +21,17 @@ class PodcastFirstRowCell: BaseTableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 22)
+        label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var episodesCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 12)
+        label.textColor = .white
+        label.text = "18 episódios"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,6 +39,7 @@ class PodcastFirstRowCell: BaseTableViewCell {
     override func addSubviews() {
         addSubview(titleView)
         titleView.addSubview(titleLabel)
+        titleView.addSubview(episodesCountLabel)
     }
     
     override func setupConstraints() {
@@ -40,8 +50,11 @@ class PodcastFirstRowCell: BaseTableViewCell {
             titleView.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 10),
-            titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 15),
+            titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 10),
+
+            episodesCountLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            episodesCountLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 10),
         ])
     }
 }

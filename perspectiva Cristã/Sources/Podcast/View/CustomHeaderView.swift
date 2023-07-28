@@ -11,7 +11,7 @@ import UIKit
 class CustomHeaderView: BaseView {
     
     lazy var container: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         view.alpha = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -41,10 +41,15 @@ class CustomHeaderView: BaseView {
             container.leadingAnchor.constraint(equalTo: leadingAnchor),
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            episodeImage.centerYAnchor.constraint(equalTo: centerYAnchor),
-            episodeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            episodeImage.widthAnchor.constraint(equalToConstant: 300),
-            episodeImage.heightAnchor.constraint(equalToConstant: 300)
+            episodeImage.topAnchor.constraint(equalTo: topAnchor),
+            episodeImage.bottomAnchor.constraint(equalTo: bottomAnchor),
+            episodeImage.leadingAnchor.constraint(equalTo: leadingAnchor),
+            episodeImage.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+//            episodeImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+//            episodeImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            episodeImage.widthAnchor.constraint(equalToConstant: 300),
+//            episodeImage.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
 }

@@ -20,6 +20,7 @@ class PodcastTableViewViewModel {
     private var items = String()
     private var dataPlaylist: [SpotifyTrack] = []
     private var imageData = String()
+    private var imageSelf = UIImage()
     
     
     init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, customHeader: CustomHeaderView?, service: Service?) {
@@ -76,8 +77,9 @@ class PodcastTableViewViewModel {
         customHeader = CustomHeaderView()
         
         screen?.tableView.parallaxHeader.view = customHeader
-        screen?.tableView.parallaxHeader.height = 360
+        screen?.tableView.parallaxHeader.height = 300
         screen?.tableView.parallaxHeader.mode = .topFill
+        screen?.tableView.parallaxHeader.minimumHeight = 90
     }
     
     func populateViewModel() {
@@ -114,6 +116,7 @@ class PodcastTableViewViewModel {
             let episodeIndex = indexPath.row
             let episodeData = dataPlaylist[episodeIndex - 1]
             DataLabels(cell, with: episodeData)
+            
             return cell
         }
     }
@@ -121,26 +124,30 @@ class PodcastTableViewViewModel {
     func separatorLine(cell: UITableViewCell, indexPath: IndexPath) {
         if indexPath.row == 0 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+            screen?.tableView.separatorColor = .lightGray
         } else {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-            screen?.tableView.separatorColor = .gray
+            screen?.tableView.separatorColor = .lightGray
         }
     }
     
     
     func setTransparentNavigationBar() {
         vcp?.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        vcp?.navigationController?.navigationBar.shadowImage = UIImage()
         vcp?.navigationController?.navigationBar.backgroundColor = .clear
         vcp?.navigationController?.navigationBar.tintColor = .white
-        vcp?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        vcp?.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
         vcp?.navigationItem.title = ""
     }
     
     func tratamentImageOfNavigationBar() {
         let image = UIImageView()
         if let imgURL = URL(string: imageData ) {
-            image.sd_setImage(with: imgURL) { (image, _, _, _) in                self.vcp?.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+            image.sd_setImage(with: imgURL) { (image, _, _, _) in
+                self.vcp?.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+                self.vcp?.navigationController?.navigationBar.shadowImage = image
             }
         }
     }
@@ -190,6 +197,8 @@ class PodcastTableViewViewModel {
         cell.titleLabel.text = episodeData.track.name
         for episodesNames in episodeData.track.artists {
             cell.subTitleLabel.text = episodesNames.name
+//            cell.episodeImage.image = imageSelf
+            episodeDurationCount(cell, with: episodeData)
         }
     }
     
@@ -205,13 +214,21 @@ class PodcastTableViewViewModel {
             }
         }
         cell.titleLabel.text = "\(separatedString)"
+        cell.episodesCountLabel.text = "\(dataPlaylist.count) Episódios"
+    }
+    
+    func episodeDurationCount(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
+        let milliseconds = episodeData.track.durationMs
+        let minutes = 60000
+        let result = (milliseconds / minutes)
+        cell.episodesDuration.text = "Duração: \(result)min"
     }
     
     func dataImage() {
         if let imgURL = URL(string: imageData ) {
             customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
-                image?.getColors { colors in
-                    self.customHeader?.container.backgroundColor = colors?.background
+                if let image = image {
+//                    self.imageSelf = image
                 }
             }
         }
@@ -237,6 +254,10 @@ class PodcastTableViewViewModel {
     }
     
     func sizeOfRows(indexPath: IndexPath) -> CGFloat {
-        return 90
+        if indexPath.row == 0 {
+            return 80
+        } else {
+            return 120
+        }
     }
 }
