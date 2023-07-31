@@ -20,8 +20,6 @@ class PodcastTableViewViewModel {
     private var items = String()
     private var dataPlaylist: [SpotifyTrack] = []
     private var imageData = String()
-    private var imageSelf = UIImage()
-    
     
     init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, customHeader: CustomHeaderView?, service: Service?) {
         self.vcp = vcp
@@ -62,78 +60,9 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func backButton() {
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(backAction))
-        backButton.image = UIImage(systemName: "chevron.backward")
-        vcp?.navigationItem.leftBarButtonItem = backButton
-    }
-    
-    
-    @objc func backAction() {
-        vcp?.navigationController?.popViewController(animated: true)
-    }
-    
-    func callToCustomHeaderTableView() {
-        customHeader = CustomHeaderView()
-        
-        screen?.tableView.parallaxHeader.view = customHeader
-        screen?.tableView.parallaxHeader.height = 300
-        screen?.tableView.parallaxHeader.mode = .topFill
-        screen?.tableView.parallaxHeader.minimumHeight = 90
-    }
-    
-    func populateViewModel() {
-        callToCustomHeaderTableView()
-        backButton()
-        service?.requestSpotifyApi(ids: items) { episodes in
-            self.dataToTableView(data: episodes)
-            self.dataImage()
-        }
-    }
-    
-    private func dataToTableView(data: SpotifyPlaylistResponse) {
-        self.dataPlaylist.append(contentsOf: data.playlist.items)
-        for img in data.images {
-            imageData = img.url
-        }
-        screen?.tableView.reloadData()
-    }
-    
-    func countOfRows(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataPlaylist.count + 1
-    }
-    
-    func tableViewContent(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PodcastFirstRowCell.identifier, for: indexPath) as! PodcastFirstRowCell
-            if dataPlaylist.count > 0 {
-                let titleData = dataPlaylist[0]
-                firstRowTitle(cell, with: titleData)
-            }
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
-            let episodeIndex = indexPath.row
-            let episodeData = dataPlaylist[episodeIndex - 1]
-            DataLabels(cell, with: episodeData)
-            
-            return cell
-        }
-    }
-    
-    func separatorLine(cell: UITableViewCell, indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
-            screen?.tableView.separatorColor = .lightGray
-        } else {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-            screen?.tableView.separatorColor = .lightGray
-        }
-    }
-    
-    
     func setTransparentNavigationBar() {
         vcp?.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        vcp?.navigationController?.navigationBar.shadowImage = UIImage()
         vcp?.navigationController?.navigationBar.backgroundColor = .clear
         vcp?.navigationController?.navigationBar.tintColor = .white
         vcp?.navigationController?.navigationBar.titleTextAttributes = [
@@ -160,24 +89,9 @@ class PodcastTableViewViewModel {
         vcp?.navigationController?.navigationBar.backItem?.title = ""
     }
     
-    private func separetedString() {
-        for i in dataPlaylist {
-            let string = i.track.name
-            let separators = [" - ", "#", "|"]
-            var separatedString = string
-            for separator in separators {
-                let components = separatedString.components(separatedBy: separator)
-                if let firstComponent = components.first {
-                    separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
-                }
-                vcp?.navigationItem.title = "\(separatedString)"
-            }
-        }
-    }
-    
     
     func navigationBarTitle(scrollView: UIScrollView) {
-        let indexPath = IndexPath(row: 1, section: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         let cellRect = screen?.tableView.rectForRow(at: indexPath)
         if let cellRect = cellRect {
             let cellPosition = screen?.tableView.convert(cellRect.origin, to: self.vcp?.view)
@@ -193,13 +107,64 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func DataLabels(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
-        cell.titleLabel.text = episodeData.track.name
-        for episodesNames in episodeData.track.artists {
-            cell.subTitleLabel.text = episodesNames.name
-//            cell.episodeImage.image = imageSelf
-            episodeDurationCount(cell, with: episodeData)
+    private func separetedString() {
+        for name in dataPlaylist {
+            let string = name.track.name
+            let separators = [" - ", "#", "|"]
+            var separatedString = string
+            for separator in separators {
+                let components = separatedString.components(separatedBy: separator)
+                if let firstComponent = components.first {
+                    separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+                vcp?.navigationItem.title = "\(separatedString)"
+            }
         }
+    }
+    
+    func backButton() {
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(backAction))
+        backButton.image = UIImage(systemName: "chevron.backward")
+        vcp?.navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc func backAction() {
+        vcp?.navigationController?.popViewController(animated: true)
+    }
+    
+    func populateViewModel() {
+        callToCustomHeaderTableView()
+        backButton()
+        service?.requestSpotifyApi(ids: items) { episodes in
+            self.dataToTableView(data: episodes)
+            self.dataImage()
+        }
+    }
+    
+    func callToCustomHeaderTableView() {
+        customHeader = CustomHeaderView()
+        screen?.tableView.parallaxHeader.view = customHeader
+        screen?.tableView.parallaxHeader.height = 450
+        screen?.tableView.parallaxHeader.mode = .topFill
+        screen?.tableView.parallaxHeader.minimumHeight = 90
+    }
+    
+    func dataImage() {
+        if let imgURL = URL(string: imageData) {
+            customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
+                image?.getColors() { colors in
+                    self.screen?.tableView.parallaxHeader.view?.backgroundColor = colors?.primary
+                }
+            }
+        }
+    }
+    
+    private func dataToTableView(data: SpotifyPlaylistResponse) {
+        self.dataPlaylist.append(contentsOf: data.playlist.items)
+        for img in data.images {
+            imageData = img.url
+        }
+        screen?.tableView.reloadData()
     }
     
     func firstRowTitle(_ cell: PodcastFirstRowCell, with episodeData: SpotifyTrack) {
@@ -224,13 +189,55 @@ class PodcastTableViewViewModel {
         cell.episodesDuration.text = "Duração: \(result)min"
     }
     
-    func dataImage() {
-        if let imgURL = URL(string: imageData ) {
-            customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
-                if let image = image {
-//                    self.imageSelf = image
+    func dataRows(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
+        cell.titleLabel.text = episodeData.track.name
+        for episodesNames in episodeData.track.artists {
+            cell.subTitleLabel.text = episodesNames.name
+            if let imgURL = URL(string: imageData) {
+                cell.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
                 }
             }
+            episodeDurationCount(cell, with: episodeData)
+        }
+    }
+    
+    func countOfRows(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataPlaylist.count + 1
+    }
+    
+    func tableViewContent(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PodcastFirstRowCell.identifier, for: indexPath) as! PodcastFirstRowCell
+            if dataPlaylist.count > 0 {
+                let titleData = dataPlaylist[0]
+                firstRowTitle(cell, with: titleData)
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PodcastTableViewCell.identifier, for: indexPath) as! PodcastTableViewCell
+            let episodeIndex = indexPath.row
+            let episodeData = dataPlaylist[episodeIndex - 1]
+            dataRows(cell, with: episodeData)
+            
+            return cell
+        }
+    }
+    
+    func sizeOfRows(indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 80
+        } else {
+            return 120
+        }
+    }
+    
+    func separatorLine(cell: UITableViewCell, indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+            screen?.tableView.separatorColor = .lightGray
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+            screen?.tableView.separatorColor = .lightGray
         }
     }
     
@@ -250,14 +257,6 @@ class PodcastTableViewViewModel {
                 }
                 vcp?.navigationController?.present(vc, animated: true)
             }
-        }
-    }
-    
-    func sizeOfRows(indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 80
-        } else {
-            return 120
         }
     }
 }

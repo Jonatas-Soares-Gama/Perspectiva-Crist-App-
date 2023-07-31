@@ -9,6 +9,9 @@ import UIKit
 
 class PodcastWebViewController: UIViewController {
     
+    var screen = PodcastWebviewScreen()
+    var viewModel: PodcastWebViewViewModel?
+    
     private let data: String
     init(data: String) {
         self.data = data
@@ -18,9 +21,6 @@ class PodcastWebViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    var screen = PodcastWebviewScreen()
-    var viewModel: PodcastWebViewViewModel?
 
     override func loadView() {
         self.view = self.screen
@@ -31,6 +31,7 @@ class PodcastWebViewController: UIViewController {
         initViewModel()
         viewModel?.initWebView(data: data)
         viewModel?.delayOfView()
+        view.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1.0)
     }
     
     private func initViewModel() {

@@ -38,9 +38,10 @@ class PodcastScreen: BaseView {
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
-        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
         collectionView.delaysContentTouches = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: false)
