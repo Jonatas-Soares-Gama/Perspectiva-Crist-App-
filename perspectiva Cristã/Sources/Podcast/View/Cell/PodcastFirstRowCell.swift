@@ -31,7 +31,6 @@ class PodcastFirstRowCell: BaseTableViewCell {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 12)
         label.textColor = .white
-        label.text = "18 episódios"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -51,10 +50,10 @@ class PodcastFirstRowCell: BaseTableViewCell {
             titleView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 16),
 
             episodesCountLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            episodesCountLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 10),
+            episodesCountLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 16),
         ])
     }
 }

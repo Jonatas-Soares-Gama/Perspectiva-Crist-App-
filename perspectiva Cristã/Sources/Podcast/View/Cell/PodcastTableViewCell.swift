@@ -76,19 +76,19 @@ class PodcastTableViewCell: BaseTableViewCell {
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             episodeImage.bottomAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: -8),
-            episodeImage.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 5),
+            episodeImage.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
             episodeImage.heightAnchor.constraint(equalToConstant: 40),
             episodeImage.widthAnchor.constraint(equalToConstant: 40),
             
             titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: episodeImage.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            titleLabel.leadingAnchor.constraint(equalTo: episodeImage.trailingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
             subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            subTitleLabel.leadingAnchor.constraint(equalTo: episodeImage.trailingAnchor, constant: 10),
+            subTitleLabel.leadingAnchor.constraint(equalTo: episodeImage.trailingAnchor, constant: 16),
             
             episodesDuration.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            episodesDuration.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            episodesDuration.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
     }
 }

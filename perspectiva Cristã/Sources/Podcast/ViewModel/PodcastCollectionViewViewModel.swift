@@ -27,6 +27,13 @@ class PodcastCollectionViewViewModel {
         self.service = service
     }
     
+    func populateViewModel() {
+        service?.requestSpotifyToken { token in
+            self.timerTobearerToken(bearer: token)
+        }
+        addData()
+    }
+    
     func addData() {
         CollectionItemsMock.shared.loadItems { items in
             self.items = items

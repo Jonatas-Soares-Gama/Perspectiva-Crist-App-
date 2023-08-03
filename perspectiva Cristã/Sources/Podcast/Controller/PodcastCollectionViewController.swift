@@ -23,10 +23,7 @@ class PodcastCollectionViewController: UIViewController {
         super.viewDidLoad()
         initViewModel()
         self.screen.configCollectionViewProtocols(delegate: self, dataSource: self)
-        service.requestSpotifyToken { token in
-            self.viewModel?.timerTobearerToken(bearer: token)
-        }
-        viewModel?.addData()
+        viewModel?.populateViewModel()
     }
 
     override func viewWillAppear(_ animated: Bool) {

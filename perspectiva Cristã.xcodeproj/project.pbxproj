@@ -238,6 +238,13 @@
 			path = BaseView;
 			sourceTree = "<group>";
 		};
+		B402D6AC2A794D2D0075721E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		B44ACEB82A5E0F3F0020430B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +332,7 @@
 		F885B2C129AAD8F20081BF71 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B402D6AC2A794D2D0075721E /* Coordinator */,
 				B44CB9892A5CF3E000F73413 /* Donation */,
 				1B503D1D2A4B7FB40052AC9B /* Radio */,
 				1B503D1C2A4B7FA30052AC9B /* Podcast */,
