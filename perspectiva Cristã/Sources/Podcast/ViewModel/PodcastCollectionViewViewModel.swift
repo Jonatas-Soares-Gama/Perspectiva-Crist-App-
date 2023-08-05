@@ -16,8 +16,8 @@ class PodcastCollectionViewViewModel {
     private var screen:  PodcastScreen?
     private var viewCell: PodcastCollectionViewCell?
     private var service: Service?
-    var timer = Timer()
-    var items: [Item] = []
+    private var timer = Timer()
+    private var items: [Item] = []
 
     
     init(vcp: PodcastCollectionViewController?, screen: PodcastScreen?, viewCell: PodcastCollectionViewCell?, service: Service?) {
@@ -34,7 +34,7 @@ class PodcastCollectionViewViewModel {
         addData()
     }
     
-    func addData() {
+    private func addData() {
         CollectionItemsMock.shared.loadItems { items in
             self.items = items
         }
@@ -59,7 +59,7 @@ class PodcastCollectionViewViewModel {
         return CGSize(width: width, height: height)
     }
     
-    func timerTobearerToken(bearer: Token) {
+    private func timerTobearerToken(bearer: Token) {
         var remainingTime = bearer.expireTime
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if remainingTime > 0 {

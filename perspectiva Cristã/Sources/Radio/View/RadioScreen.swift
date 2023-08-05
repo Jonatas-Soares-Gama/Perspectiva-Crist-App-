@@ -49,10 +49,6 @@ class RadioScreen: BaseView {
         image.image = UIImage(named: "radioAzul2")
         image.sizeToFit()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.shadowOpacity = 0.5
-        image.layer.shadowOffset = CGSize(width: 8, height: 6)
-        image.layer.shadowRadius = 4
-        image.clipsToBounds = false
         return image
     }()
     

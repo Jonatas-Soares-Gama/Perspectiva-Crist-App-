@@ -26,7 +26,6 @@ class PodcastCollectionViewCell: BaseViewCell {
         image.layer.masksToBounds = true
         image.tintColor = .red
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "TriviumCast-Episodio-001-mp3-image")
         return image
     }()
     

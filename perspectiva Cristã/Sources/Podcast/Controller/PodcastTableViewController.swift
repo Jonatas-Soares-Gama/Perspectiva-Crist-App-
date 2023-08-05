@@ -43,6 +43,7 @@ class PodcastTableViewController: UIViewController, UIViewControllerTransitionin
         viewModel?.initCollectionItens(with: data)
         viewModel?.populateViewModel()
         navigationController?.setNavigationBarHidden(false, animated: false)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

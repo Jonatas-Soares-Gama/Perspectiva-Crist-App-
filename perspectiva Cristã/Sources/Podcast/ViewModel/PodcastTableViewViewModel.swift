@@ -60,7 +60,7 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func setTransparentNavigationBar() {
+    private func setTransparentNavigationBar() {
         vcp?.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         vcp?.navigationController?.navigationBar.shadowImage = UIImage()
         vcp?.navigationController?.navigationBar.backgroundColor = .clear
@@ -71,7 +71,7 @@ class PodcastTableViewViewModel {
         vcp?.navigationItem.title = ""
     }
     
-    func tratamentImageOfNavigationBar() {
+    private func tratamentImageOfNavigationBar() {
         let image = UIImageView()
         if let imgURL = URL(string: imageData ) {
             image.sd_setImage(with: imgURL) { (image, _, _, _) in
@@ -122,7 +122,7 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func backButton() {
+    private func backButton() {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(backAction))
         backButton.image = UIImage(systemName: "chevron.backward")
         vcp?.navigationItem.leftBarButtonItem = backButton
@@ -141,7 +141,7 @@ class PodcastTableViewViewModel {
         }
     }
     
-    func callToCustomHeaderTableView() {
+    private func callToCustomHeaderTableView() {
         customHeader = CustomHeaderView()
         screen?.tableView.parallaxHeader.view = customHeader
         screen?.tableView.parallaxHeader.height = 450
@@ -149,7 +149,7 @@ class PodcastTableViewViewModel {
         screen?.tableView.parallaxHeader.minimumHeight = 90
     }
     
-    func dataImage() {
+    private func dataImage() {
         if let imgURL = URL(string: imageData) {
             customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
                 image?.getColors() { colors in
@@ -167,7 +167,7 @@ class PodcastTableViewViewModel {
         screen?.tableView.reloadData()
     }
     
-    func firstRowTitle(_ cell: PodcastFirstRowCell, with episodeData: SpotifyTrack) {
+    private func firstRowTitle(_ cell: PodcastFirstRowCell, with episodeData: SpotifyTrack) {
         let string = episodeData.track.name
         let separators = [" - ", "#", "|"]
         var separatedString = string
@@ -182,14 +182,14 @@ class PodcastTableViewViewModel {
         cell.episodesCountLabel.text = "\(dataPlaylist.count) Episódios"
     }
     
-    func episodeDurationCount(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
+    private func episodeDurationCount(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
         let milliseconds = episodeData.track.durationMs
         let minutes = 60000
         let result = (milliseconds / minutes)
         cell.episodesDuration.text = "Duração: \(result)min"
     }
     
-    func dataRows(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
+    private func dataRows(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {
         cell.titleLabel.text = episodeData.track.name
         for episodesNames in episodeData.track.artists {
             cell.subTitleLabel.text = episodesNames.name

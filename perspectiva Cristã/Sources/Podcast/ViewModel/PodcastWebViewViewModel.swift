@@ -18,15 +18,13 @@ class PodcastWebViewViewModel {
     }
     
     func initWebView(data: String) {
-        DispatchQueue.main.async {
             if let url = URL(string: "https://open.spotify.com/embed/episode/\(data)?utm_source=generator&theme=0") {
                 let request = URLRequest(url: url)
                 self.screen?.webView.load(request)
-            }
         }
     }
     
-    func delayOfView() {
+     func delayOfView() {
         let delayInSeconds: Double = 1
         DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
             self.screen?.container.isHidden = false
