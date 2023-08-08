@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
+import HPParallaxHeader
 
-class PodcastTableViewController: UIViewController {
+
+class PodcastTableViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     
     private let data: Int
@@ -40,6 +43,7 @@ class PodcastTableViewController: UIViewController {
         viewModel?.initCollectionItens(with: data)
         viewModel?.populateViewModel()
         navigationController?.setNavigationBarHidden(false, animated: false)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

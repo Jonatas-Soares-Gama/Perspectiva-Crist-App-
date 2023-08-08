@@ -181,11 +181,6 @@ class DonationScreen: BaseView {
         return label
     }()
     
-    @objc func viewTapped() {
-        // Ação a ser executada quando a UIView (myView) for clicada
-        print("A UIView foi clicada!")
-    }
-    
     override func addSubviews() {
         addSubview(backgroundView)
         backgroundView.addSubview(titleLabel)
