@@ -110,7 +110,7 @@ class DonationScreen: BaseView {
     
     lazy var copyPastePix: UILabel = {
         let label = UILabel()
-        label.text = "00020126920014BR.GOV.BCB.PIX0134radioperspectivacrista@outlook.com0232Apoio a Radio Persp\nectiva Crista5204000053039865802BR5925\nMARALICE FERREIRA BATISTA6009SAO PAULO\n6226052269qRDUyyG17LEAmbYXhVBq6304E28E"
+        label.text = "00020126920014BR.GOV.BCB.PIX0134radiopersp\nectivacrista@outlook.com0232Apoio a Radio Pers\npectiva Crista5204000053039865802BR5925MA\nRALICE FERREIRA BATISTA6009SAO PAULO6226\n052269qRDUyyG17LEAmbYXhVBq6304E28E"
         label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
         label.textColor = .black
