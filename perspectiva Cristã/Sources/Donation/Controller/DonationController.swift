@@ -9,7 +9,8 @@ import UIKit
 
 class DonationController: UIViewController {
     
-    private var screen: DonationScreen?
+    private var screen = DonationScreen()
+    private var viewModel: DonationViewModel?
     
     override func loadView() {
         screen = DonationScreen()
@@ -18,7 +19,8 @@ class DonationController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
+        initViewModel()
+        viewModel?.copyGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,7 +28,9 @@ class DonationController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    
+    private func initViewModel() {
+        viewModel = DonationViewModel(screen: screen)
+    }
 }
 
 

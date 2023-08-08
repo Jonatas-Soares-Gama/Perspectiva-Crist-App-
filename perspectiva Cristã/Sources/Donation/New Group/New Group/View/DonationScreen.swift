@@ -61,6 +61,7 @@ class DonationScreen: BaseView {
         label.text = "beneficiário(a): \nMARALICE FERREIRA BATISTA"
         label.font = .boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setLineSpacing(lineSpacing: 4)
         return label
@@ -71,13 +72,14 @@ class DonationScreen: BaseView {
         label.text = "descrição: \nApoio à Rádio Perspectiva Cristã"
         label.font = .boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setLineSpacing(lineSpacing: 4)
         return label
     }()
     
-    lazy var keyPixContainer: UIView = {
-        let view = UIView()
+    lazy var keyPixContainer: UIButton = {
+        let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.shadowOpacity = 0.5
         view.layer.shadowOffset = CGSize(width: 8, height: 6)
@@ -93,6 +95,7 @@ class DonationScreen: BaseView {
         label.text = "clique aqui e copie o código \nabaixo para pagar via Pix"
         label.font = .boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -107,9 +110,33 @@ class DonationScreen: BaseView {
     
     lazy var copyPastePix: UILabel = {
         let label = UILabel()
-        label.text = "00020126920014BR.GOV.BCB.PIX0134radioperspectivacrista@outlook.com0232Apoio a Radio Perspectiva Crista5204000053039865802BR5925MARALICE FERREIRA BATISTA6009SAO PAULO6226052269qRDUyyG17LEAmbYXhVBq6304E28E"
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.text = "00020126920014BR.GOV.BCB.PIX0134radioperspectivacrista@outlook.com0232Apoio a Radio Persp\nectiva Crista5204000053039865802BR5925\nMARALICE FERREIRA BATISTA6009SAO PAULO\n6226052269qRDUyyG17LEAmbYXhVBq6304E28E"
+        label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var copyPastePixAlert: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 8, height: 6)
+        view.layer.shadowRadius = 4
+        view.clipsToBounds = false
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .cyan
+        view.isHidden = true
+        return view
+    }()
+    
+    lazy var alertContentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Chave Pix copiado para área de transferência"
+        label.font = .boldSystemFont(ofSize: 15)
+        label.numberOfLines = 0
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -131,6 +158,7 @@ class DonationScreen: BaseView {
         label.text = "se preferir, leia o QR Code® Pix com seu app de pagamentos"
         label.font = .boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -147,10 +175,16 @@ class DonationScreen: BaseView {
         label.text = "chave Pix e-mail: \nradioperspectivacrista@outlook.com"
         label.font = .boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setLineSpacing(lineSpacing: 4)
         return label
     }()
+    
+    @objc func viewTapped() {
+        // Ação a ser executada quando a UIView (myView) for clicada
+        print("A UIView foi clicada!")
+    }
     
     override func addSubviews() {
         addSubview(backgroundView)
@@ -168,6 +202,8 @@ class DonationScreen: BaseView {
         qrcodePixContainer.addSubview(titleQrcodePix)
         qrcodePixContainer.addSubview(qrcodeImage)
         qrcodePixContainer.addSubview(keyPixLabel)
+        backgroundView.addSubview(copyPastePixAlert)
+        copyPastePixAlert.addSubview(alertContentLabel)
     }
     
     override func setupConstrainst() {
@@ -180,6 +216,14 @@ class DonationScreen: BaseView {
             
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,constant: 30),
             titleLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            
+            copyPastePixAlert.centerXAnchor.constraint(equalTo: centerXAnchor),
+            copyPastePixAlert.topAnchor.constraint(equalTo: topAnchor, constant: -30),
+            copyPastePixAlert.heightAnchor.constraint(equalToConstant: 50),
+            copyPastePixAlert.widthAnchor.constraint(equalToConstant: 380),
+            
+            alertContentLabel.centerXAnchor.constraint(equalTo: copyPastePixAlert.centerXAnchor),
+            alertContentLabel.centerYAnchor.constraint(equalTo: copyPastePixAlert.centerYAnchor),
             
             subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 10),
             subTitleLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor, constant: -3),
@@ -205,18 +249,18 @@ class DonationScreen: BaseView {
             keyPixContainer.centerXAnchor.constraint(equalTo: centerXAnchor),
             keyPixContainer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             keyPixContainer.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            keyPixContainer.heightAnchor.constraint(equalToConstant: 160),
+            keyPixContainer.heightAnchor.constraint(equalToConstant: 150),
             
             titleCopyPastePix.topAnchor.constraint(equalTo: keyPixContainer.topAnchor, constant: 10),
             titleCopyPastePix.leadingAnchor.constraint(equalTo: keyPixContainer.leadingAnchor, constant: 16),
             titleCopyPastePix.trailingAnchor.constraint(equalTo: keyPixContainer.trailingAnchor, constant: -16),
             
-            copyImage.centerYAnchor.constraint(equalTo: titleCopyPastePix.centerYAnchor),
+            copyImage.centerYAnchor.constraint(equalTo: keyPixContainer.centerYAnchor),
             copyImage.trailingAnchor.constraint(equalTo: keyPixContainer.trailingAnchor, constant: -10),
             
             copyPastePix.topAnchor.constraint(equalTo: titleCopyPastePix.topAnchor, constant: 50),
             copyPastePix.leadingAnchor.constraint(equalTo: keyPixContainer.leadingAnchor, constant: 16),
-            copyPastePix.trailingAnchor.constraint(equalTo: keyPixContainer.trailingAnchor, constant: -16),
+            copyPastePix.trailingAnchor.constraint(equalTo: copyImage.leadingAnchor, constant: -10),
             
             qrcodePixContainer.topAnchor.constraint(equalTo: keyPixContainer.bottomAnchor, constant: 20),
             qrcodePixContainer.centerXAnchor.constraint(equalTo: centerXAnchor),

@@ -21,14 +21,11 @@ class HomeRadioController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initViewModel()
+        viewModel?.populateViewModel()
     }
     
     
     private func initViewModel() {
-        if let screen = self.screen {
-            viewModel = RadioViewModel(screenView: screen)
-        }
-        viewModel?.actionPlayButton()
-        viewModel?.actionPauseButton()
+        viewModel = RadioViewModel(screen: screen)
     }
 }

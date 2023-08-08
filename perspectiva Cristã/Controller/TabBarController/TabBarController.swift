@@ -42,8 +42,6 @@ class TabBarController: UITabBarController {
         
     }
     private func initViewModel() {
-        if let screen = self.screen {
-            viewModel = RadioViewModel(screenView: screen)
-        }
+            viewModel = RadioViewModel(screen: screen)
     }
 }

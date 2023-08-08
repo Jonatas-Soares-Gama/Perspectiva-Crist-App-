@@ -7,21 +7,26 @@ class RadioViewModel {
     
     private var audioPlayer: AVPlayer?
     private var audioSession = AVAudioSession.sharedInstance()
-    private let screenView: RadioScreen?
+    private let screen: RadioScreen?
     private var service = Service()
     private var timer: Timer?
     private var isPaused: Bool = false
     
-    init(screenView: RadioScreen) {
-        self.screenView = screenView
+    init(screen: RadioScreen?) {
+        self.screen = screen
+    }
+    
+    func populateViewModel() {
+        actionPlayButton()
+        actionPauseButton()
     }
     
     func actionPlayButton() {
-        screenView?.playButton.addTarget(self, action: #selector(getApiPlay), for: .touchUpInside)
+        screen?.playButton.addTarget(self, action: #selector(getApiPlay), for: .touchUpInside)
     }
     
     func actionPauseButton() {
-        screenView?.pauseButton.addTarget(self, action: #selector(getApiPause), for: .touchUpInside)
+        screen?.pauseButton.addTarget(self, action: #selector(getApiPause), for: .touchUpInside)
     }
     
     @objc private func getApiPlay() {
@@ -146,23 +151,23 @@ class RadioViewModel {
     }
     
     private func updateViewAfterPlay(data: List) {
-        self.screenView?.playButton.isHidden = true
-        self.screenView?.pauseButton.isHidden = false
-        self.screenView?.artistPlayLabel.isHidden = false
-        self.screenView?.titlePlayLabel.isHidden = false
-        self.screenView?.titlePlayLabel.text = data.nowPlaying?.song?.title
-        self.screenView?.artistPlayLabel.text = data.nowPlaying?.song?.artist
+        self.screen?.playButton.isHidden = true
+        self.screen?.pauseButton.isHidden = false
+        self.screen?.artistPlayLabel.isHidden = false
+        self.screen?.titlePlayLabel.isHidden = false
+        self.screen?.titlePlayLabel.text = data.nowPlaying?.song?.title
+        self.screen?.artistPlayLabel.text = data.nowPlaying?.song?.artist
         guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
-        self.screenView?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
+        self.screen?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
             image?.getColors { colors in
-                self.screenView?.backgroundView.backgroundColor = colors?.background
-                self.screenView?.radioImage.layer.shadowColor = colors?.detail.cgColor
-                self.screenView?.titlePlayLabel.textColor = colors?.primary
-                self.screenView?.artistPlayLabel.textColor = colors?.detail
-                self.screenView?.titleLabel.textColor = colors?.detail
-                self.screenView?.subTitleLabel.textColor = colors?.primary
-                self.screenView?.liveImage.tintColor = colors?.detail
-                self.screenView?.pauseButton.tintColor = colors?.detail
+                self.screen?.backgroundView.backgroundColor = colors?.background
+                self.screen?.radioImage.layer.shadowColor = colors?.detail.cgColor
+                self.screen?.titlePlayLabel.textColor = colors?.primary
+                self.screen?.artistPlayLabel.textColor = colors?.detail
+                self.screen?.titleLabel.textColor = colors?.detail
+                self.screen?.subTitleLabel.textColor = colors?.primary
+                self.screen?.liveImage.tintColor = colors?.detail
+                self.screen?.pauseButton.tintColor = colors?.detail
             }
         }
     }
@@ -170,15 +175,15 @@ class RadioViewModel {
     private func pauseMusic(data: List) {
         DispatchQueue.main.async {
             self.audioPlayer?.pause()
-            self.screenView?.pauseButton.isHidden = true
-            self.screenView?.playButton.isHidden = false
-            self.screenView?.radioImage.image = UIImage(named: "radioAzul2")
-            self.screenView?.artistPlayLabel.isHidden = true
-            self.screenView?.titlePlayLabel.isHidden = true
-            self.screenView?.backgroundView.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
-            self.screenView?.titleLabel.textColor = .white
-            self.screenView?.subTitleLabel.textColor = .red
-            self.screenView?.liveImage.tintColor = .red
+            self.screen?.pauseButton.isHidden = true
+            self.screen?.playButton.isHidden = false
+            self.screen?.radioImage.image = UIImage(named: "radioAzul2")
+            self.screen?.artistPlayLabel.isHidden = true
+            self.screen?.titlePlayLabel.isHidden = true
+            self.screen?.backgroundView.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
+            self.screen?.titleLabel.textColor = .white
+            self.screen?.subTitleLabel.textColor = .red
+            self.screen?.liveImage.tintColor = .red
         }
     }
 }
