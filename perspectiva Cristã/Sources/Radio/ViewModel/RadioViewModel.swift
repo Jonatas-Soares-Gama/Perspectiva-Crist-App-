@@ -17,19 +17,15 @@ class RadioViewModel {
     }
     
     func populateViewModel() {
-        actionPlayButton()
-        actionPauseButton()
+        setupButtonActions()
     }
     
-    func actionPlayButton() {
-        screen?.playButton.addTarget(self, action: #selector(getApiPlay), for: .touchUpInside)
+    private func setupButtonActions() {
+        screen?.playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+        screen?.pauseButton.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
     }
     
-    func actionPauseButton() {
-        screen?.pauseButton.addTarget(self, action: #selector(getApiPause), for: .touchUpInside)
-    }
-    
-    @objc private func getApiPlay() {
+    @objc private func playButtonTapped() {
         self.isPaused = false
         self.service.requestApi { station in
             self.airplayradio(data: station)
@@ -45,8 +41,8 @@ class RadioViewModel {
                 remainingTime -= 1
                 print("Tempo restante: \(remainingTime)")
             } else {
-                self.timer?.invalidate()  // Interrompe o timer atual
-                if !self.isPaused {
+                timer.invalidate()
+                if self.isPaused {
                     self.service.requestApi { station in
                         self.updateViewAfterPlay(data: station)
                         self.airplayradio(data: station)
@@ -76,12 +72,92 @@ class RadioViewModel {
         }
     }
     
-    @objc private func getApiPause() {
-        self.isPaused = true
-        self.timer?.invalidate()
+    @objc private func pauseButtonTapped() {
+        isPaused = true
+        timer?.invalidate()
+            pauseMusic()
+    }
+    
+    private func handlePlayCommand() {
+        self.isPaused = false
         self.service.requestApi { station in
-            self.pauseMusic(data: station)
+            self.airplayradio(data: station)
+            self.playMusic(data: station)
+            self.startTimer(tempoEstipulado: TimeInterval(station.nowPlaying?.remaining ?? 0) + 6)
         }
+    }
+    
+    private func handlePauseCommand() {
+        isPaused = true
+        timer?.invalidate()
+            pauseMusic()
+    }
+    
+    private func playMusic(data: List) {
+        self.updateViewAfterPlay(data: data)
+        self.setupAudioPlayer(data: data)
+    }
+    
+    func setupAudioPlayer(data: List) {
+        guard let musicURL = URL(string: data.station?.listenURL ?? "") else { return }
+        self.audioPlayer = AVPlayer(url: musicURL)
+        self.audioPlayer?.play()
+        self.audioSession = AVAudioSession.sharedInstance()
+        do {
+            try self.audioSession.setCategory(.playback, mode: .default, options: [])
+            try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Erro ao configurar a sessão de áudio: \(error.localizedDescription)")
+        }
+    }
+    
+    private func updateViewAfterPlay(data: List) {
+        DispatchQueue.main.async {
+            guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
+            self.screen?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
+                image?.getColors { colors in
+                    if let colors = colors {
+                        self.modifyViewsAfterPlay(data: data, colors: colors)
+                    }
+                }
+            }
+        }
+    }
+    
+    func modifyViewsAfterPlay(data: List, colors: UIImageColors) {
+        self.screen?.playButton.isHidden = true
+        self.screen?.pauseButton.isHidden = false
+        self.screen?.artistPlayLabel.isHidden = false
+        self.screen?.titlePlayLabel.isHidden = false
+        self.screen?.titlePlayLabel.text = data.nowPlaying?.song?.title
+        self.screen?.artistPlayLabel.text = data.nowPlaying?.song?.artist
+        self.screen?.backgroundView.backgroundColor = colors.background
+        self.screen?.radioImage.layer.shadowColor = colors.detail.cgColor
+        self.screen?.titlePlayLabel.textColor = colors.primary
+        self.screen?.artistPlayLabel.textColor = colors.detail
+        self.screen?.titleLabel.textColor = colors.detail
+        self.screen?.subTitleLabel.textColor = colors.primary
+        self.screen?.liveImage.tintColor = colors.detail
+        self.screen?.pauseButton.tintColor = colors.detail
+    }
+    
+    private func pauseMusic() {
+        DispatchQueue.main.async {
+            self.audioPlayer?.pause()
+            self.modifyViewsAfterPause()
+        }
+    }
+    
+    func modifyViewsAfterPause() {
+        self.screen?.pauseButton.isHidden = true
+        self.screen?.playButton.isHidden = false
+        self.screen?.radioImage.image = UIImage(named: "radioAzul2")
+        self.screen?.artistPlayLabel.isHidden = true
+        self.screen?.titlePlayLabel.isHidden = true
+        self.screen?.backgroundView.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
+        self.screen?.titleLabel.textColor = .white
+        self.screen?.subTitleLabel.textColor = .red
+        self.screen?.liveImage.tintColor = .red
     }
     
     private func airplayradio(data: List) {
@@ -116,74 +192,6 @@ class RadioViewModel {
         commandCenter.pauseCommand.addTarget { [weak self] event in
             self?.handlePauseCommand()
             return .success
-        }
-    }
-    
-    private func handlePlayCommand() {
-        self.isPaused = false
-        self.service.requestApi { station in
-            self.airplayradio(data: station)
-            self.playMusic(data: station)
-            self.startTimer(tempoEstipulado: TimeInterval(station.nowPlaying?.remaining ?? 0) + 6)
-        }
-    }
-    
-    private func handlePauseCommand() {
-        self.isPaused = true
-        self.timer?.invalidate()
-        self.service.requestApi { station in
-            self.pauseMusic(data: station)
-        }
-    }
-    
-    private func playMusic(data: List) {
-        self.updateViewAfterPlay(data: data)
-        guard let musicURL = URL(string: data.station?.listenURL ?? "") else { return }
-        self.audioPlayer = AVPlayer(url: musicURL)
-        self.audioPlayer?.play()
-        self.audioSession = AVAudioSession.sharedInstance()
-        do {
-            try self.audioSession.setCategory(.playback, mode: .default, options: [])
-            try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {
-            print("Erro ao configurar a sessão de áudio: \(error.localizedDescription)")
-        }
-    }
-    
-    private func updateViewAfterPlay(data: List) {
-        self.screen?.playButton.isHidden = true
-        self.screen?.pauseButton.isHidden = false
-        self.screen?.artistPlayLabel.isHidden = false
-        self.screen?.titlePlayLabel.isHidden = false
-        self.screen?.titlePlayLabel.text = data.nowPlaying?.song?.title
-        self.screen?.artistPlayLabel.text = data.nowPlaying?.song?.artist
-        guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
-        self.screen?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
-            image?.getColors { colors in
-                self.screen?.backgroundView.backgroundColor = colors?.background
-                self.screen?.radioImage.layer.shadowColor = colors?.detail.cgColor
-                self.screen?.titlePlayLabel.textColor = colors?.primary
-                self.screen?.artistPlayLabel.textColor = colors?.detail
-                self.screen?.titleLabel.textColor = colors?.detail
-                self.screen?.subTitleLabel.textColor = colors?.primary
-                self.screen?.liveImage.tintColor = colors?.detail
-                self.screen?.pauseButton.tintColor = colors?.detail
-            }
-        }
-    }
-    
-    private func pauseMusic(data: List) {
-        DispatchQueue.main.async {
-            self.audioPlayer?.pause()
-            self.screen?.pauseButton.isHidden = true
-            self.screen?.playButton.isHidden = false
-            self.screen?.radioImage.image = UIImage(named: "radioAzul2")
-            self.screen?.artistPlayLabel.isHidden = true
-            self.screen?.titlePlayLabel.isHidden = true
-            self.screen?.backgroundView.backgroundColor = UIColor(red: 23/255, green: 78/255, blue: 155/255, alpha: 1.0)
-            self.screen?.titleLabel.textColor = .white
-            self.screen?.subTitleLabel.textColor = .red
-            self.screen?.liveImage.tintColor = .red
         }
     }
 }
