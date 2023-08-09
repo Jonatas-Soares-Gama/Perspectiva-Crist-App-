@@ -41,8 +41,8 @@ class RadioViewModel {
                 remainingTime -= 1
                 print("Tempo restante: \(remainingTime)")
             } else {
-                timer.invalidate()
-                if self.isPaused {
+                self.timer?.invalidate()  // Interrompe o timer atual
+                if !self.isPaused {
                     self.service.requestApi { station in
                         self.updateViewAfterPlay(data: station)
                         self.airplayradio(data: station)
@@ -73,9 +73,44 @@ class RadioViewModel {
     }
     
     @objc private func pauseButtonTapped() {
-        isPaused = true
-        timer?.invalidate()
+        self.isPaused = true
+        self.timer?.invalidate()
             pauseMusic()
+    }
+    
+    private func airplayradio(data: List) {
+        let _ = MPRemoteCommandCenter.shared()
+        self.configureRemoteCommandCenter()
+        
+        var nowPlayingInfo: [String: Any] = [
+            MPMediaItemPropertyTitle: data.nowPlaying?.song?.title ?? "",
+            MPMediaItemPropertyArtist: data.nowPlaying?.song?.artist ?? "",
+            MPNowPlayingInfoPropertyPlaybackRate: 1,
+        ]
+        
+        if let artURLString = data.nowPlaying?.song?.art, let artURL = URL(string: artURLString) {
+            SDWebImageDownloader.shared.downloadImage(with: artURL) { (image, _, _, _) in
+                if let artworkImage = image {
+                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: artworkImage.size, requestHandler: { _ -> UIImage in
+                        return artworkImage
+                    })
+                    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+                }
+            }
+        }
+    }
+    
+    private func configureRemoteCommandCenter() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.addTarget { [weak self] event in
+            self?.handlePlayCommand()
+            return .success
+        }
+        
+        commandCenter.pauseCommand.addTarget { [weak self] event in
+            self?.handlePauseCommand()
+            return .success
+        }
     }
     
     private func handlePlayCommand() {
@@ -88,9 +123,9 @@ class RadioViewModel {
     }
     
     private func handlePauseCommand() {
-        isPaused = true
-        timer?.invalidate()
-            pauseMusic()
+        self.isPaused = true
+        self.timer?.invalidate()
+            self.pauseMusic()
     }
     
     private func playMusic(data: List) {
@@ -112,13 +147,11 @@ class RadioViewModel {
     }
     
     private func updateViewAfterPlay(data: List) {
-        DispatchQueue.main.async {
-            guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
-            self.screen?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
-                image?.getColors { colors in
-                    if let colors = colors {
-                        self.modifyViewsAfterPlay(data: data, colors: colors)
-                    }
+        guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
+        self.screen?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
+            image?.getColors { colors in
+                if let colors = colors {
+                    self.modifyViewsAfterPlay(data: data, colors: colors)
                 }
             }
         }
@@ -158,40 +191,5 @@ class RadioViewModel {
         self.screen?.titleLabel.textColor = .white
         self.screen?.subTitleLabel.textColor = .red
         self.screen?.liveImage.tintColor = .red
-    }
-    
-    private func airplayradio(data: List) {
-        let _ = MPRemoteCommandCenter.shared()
-        self.configureRemoteCommandCenter()
-        
-        var nowPlayingInfo: [String: Any] = [
-            MPMediaItemPropertyTitle: data.nowPlaying?.song?.title ?? "",
-            MPMediaItemPropertyArtist: data.nowPlaying?.song?.artist ?? "",
-            MPNowPlayingInfoPropertyPlaybackRate: 1,
-        ]
-        
-        if let artURLString = data.nowPlaying?.song?.art, let artURL = URL(string: artURLString) {
-            SDWebImageDownloader.shared.downloadImage(with: artURL) { (image, _, _, _) in
-                if let artworkImage = image {
-                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: artworkImage.size, requestHandler: { _ -> UIImage in
-                        return artworkImage
-                    })
-                    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-                }
-            }
-        }
-    }
-    
-    private func configureRemoteCommandCenter() {
-        let commandCenter = MPRemoteCommandCenter.shared()
-        commandCenter.playCommand.addTarget { [weak self] event in
-            self?.handlePlayCommand()
-            return .success
-        }
-        
-        commandCenter.pauseCommand.addTarget { [weak self] event in
-            self?.handlePauseCommand()
-            return .success
-        }
     }
 }
