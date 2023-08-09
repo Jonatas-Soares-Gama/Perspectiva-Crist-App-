@@ -37,12 +37,12 @@ class RadioViewModel {
     func startTimer(tempoEstipulado: TimeInterval) {
         var remainingTime = tempoEstipulado
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if remainingTime > 0 && !self.isPaused {
+            if remainingTime > 0 && self.isPaused {
                 remainingTime -= 1
                 print("Tempo restante: \(remainingTime)")
             } else {
                 self.timer?.invalidate()  // Interrompe o timer atual
-                if !self.isPaused {
+                if self.isPaused {
                     self.service.requestApi { station in
                         self.updateViewAfterPlay(data: station)
                         self.airplayradio(data: station)
@@ -56,12 +56,12 @@ class RadioViewModel {
     func startNextTimer(tempoEstipulado: TimeInterval) {
         var remainingTime = tempoEstipulado
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if remainingTime > 0 && !self.isPaused {
+            if remainingTime > 0 && self.isPaused {
                 remainingTime -= 1
                 print("Tempo restante (próxima reprodução): \(remainingTime)")
-            } else if remainingTime == 0 || !self.isPaused {
+            } else if remainingTime == 0 || self.isPaused {
                 self.timer?.invalidate()  // Interrompe o timer atual
-                if !self.isPaused {
+                if self.isPaused {
                     self.service.requestApi { station in
                         self.updateViewAfterPlay(data: station)
                         self.airplayradio(data: station)
