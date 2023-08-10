@@ -29,37 +29,7 @@ class PodcastTableViewViewModel {
         self.service = service
         self.customHeader = customHeader
     }
-    
-    func initCollectionItens(with choice: Int) {
-        
-        switch choice {
-        case 0:
-            items = "5I9xtxN65z8pAEawlpohnD"
-        case 1:
-            items = "5fP7BnXYk6ArBFRX6RobTC"
-        case 2:
-            items = "2uH7425MVaicP4HTwFj6TH"
-        case 3:
-            items = "7hXqTs1S0lhfmwbmk2x9Ji"
-        case 4:
-            items = "7JxngU2TjCEvYlEJ295c4w"
-        case 5:
-            items = "7fZ3TV61qH0DQ6OMPbkeNA"
-        case 6:
-            items = "1PWTBv3QGUGQLupKdco7nB"
-        case 7:
-            items = "1LmkPNmiwZ6FnGICEZHt4k"
-        case 8:
-            items = "0SjOpbFH82z90QXp2MhohT"
-        case 9:
-            items = "1k0PDsvLM6y86A5XrrJzSb"
-        case 10:
-            items = "5yUFW5ptTiSLySl2EkHRh9"
-        default:
-            items = ""
-        }
-    }
-    
+
     private func setTransparentNavigationBar() {
         vcp?.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         vcp?.navigationController?.navigationBar.shadowImage = UIImage()
@@ -132,10 +102,10 @@ class PodcastTableViewViewModel {
         vcp?.navigationController?.popViewController(animated: true)
     }
     
-    func populateViewModel() {
+    func populateViewModel(id: String) {
         callToCustomHeaderTableView()
         backButton()
-        service?.requestSpotifyApi(ids: items) { episodes in
+        service?.requestSpotifyApi(ids: id) { episodes in
             self.dataToTableView(data: episodes)
             self.dataImage()
         }

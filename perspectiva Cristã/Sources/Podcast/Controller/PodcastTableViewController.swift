@@ -12,9 +12,8 @@ import HPParallaxHeader
 
 class PodcastTableViewController: UIViewController {
     
-    
-    private let data: Int
-    init(data: Int) {
+    private let data: String
+    init(data: String) {
         self.data = data
         super.init(nibName: "PodcastTableViewController", bundle: nil)
     }
@@ -29,9 +28,7 @@ class PodcastTableViewController: UIViewController {
     private var customHeaderView: CustomHeaderView?
     private var viewModel: PodcastTableViewViewModel?
     private var service = Service()
-    let headerView = UIImageView()
 
-    
     override func loadView() {
         self.view = screen
     }
@@ -40,20 +37,13 @@ class PodcastTableViewController: UIViewController {
         super.viewDidLoad()
         screen.configTableViewProtocols(delegate: self, dataSource: self)
         initViewModel()
-        viewModel?.initCollectionItens(with: data)
-        viewModel?.populateViewModel()
+        viewModel?.populateViewModel(id: data)
         navigationController?.setNavigationBarHidden(false, animated: false)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
     }
     
     private func initViewModel() {

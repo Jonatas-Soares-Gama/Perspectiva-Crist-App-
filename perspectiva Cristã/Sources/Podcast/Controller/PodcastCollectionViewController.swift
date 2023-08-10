@@ -29,6 +29,7 @@ class PodcastCollectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     private func initViewModel() {
@@ -56,7 +57,6 @@ extension PodcastCollectionViewController: UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = PodcastTableViewController(data: indexPath.row)
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel?.didSelectItemIndex(indexPath: indexPath)
     }
 }

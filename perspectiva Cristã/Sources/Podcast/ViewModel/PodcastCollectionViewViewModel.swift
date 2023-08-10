@@ -17,7 +17,8 @@ class PodcastCollectionViewViewModel {
     private var viewCell: PodcastCollectionViewCell?
     private var service: Service?
     private var timer = Timer()
-    private var items: [Item] = []
+    var items: [Item] = []
+    
 
     
     init(vcp: PodcastCollectionViewController?, screen: PodcastScreen?, viewCell: PodcastCollectionViewCell?, service: Service?) {
@@ -28,10 +29,10 @@ class PodcastCollectionViewViewModel {
     }
     
     func populateViewModel() {
+        addData()
         service?.requestSpotifyToken { token in
             self.timerTobearerToken(bearer: token)
         }
-        addData()
     }
     
     private func addData() {
@@ -57,6 +58,12 @@ class PodcastCollectionViewViewModel {
         let width = (collectionView.bounds.width - spacing * 3) / 1.9555
         let height = width
         return CGSize(width: width, height: height)
+    }
+    
+    func didSelectItemIndex(indexPath: IndexPath) {
+        let item = items[indexPath.item]
+        let vc = PodcastTableViewController(data: item.name)
+        vcp?.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func timerTobearerToken(bearer: Token) {

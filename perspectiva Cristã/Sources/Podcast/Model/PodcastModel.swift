@@ -11,6 +11,7 @@ import Foundation
 
 struct Item {
     var image: String
+    var name: String
     
 }
 
@@ -19,22 +20,23 @@ class CollectionItemsMock {
     
     func loadItems(completion: @escaping ([Item]) -> Void) {
         let items = [
-            Item(image: "TriviumCast"),
-            Item(image: "MissaodopovodeDeus"),
-            Item(image: "masculinidadeemprosa"),
-            Item(image: "grandesperguntas"),
-            Item(image: "comoanalisaraliteratura"),
-            Item(image: "entreaspas"),
-            Item(image: "mascbiblica"),
-            Item(image: "mulherespeidosas"),
-            Item(image: "saude"),
-            Item(image: "portugues"),
-            Item(image: "sementes"),
+            Item(image: "TriviumCast", name: "5I9xtxN65z8pAEawlpohnD"),
+            Item(image: "MissaodopovodeDeus", name: "5fP7BnXYk6ArBFRX6RobTC"),
+            Item(image: "masculinidadeemprosa", name: "2uH7425MVaicP4HTwFj6TH"),
+            Item(image: "grandesperguntas", name: "7hXqTs1S0lhfmwbmk2x9Ji"),
+            Item(image: "comoanalisaraliteratura", name: "7JxngU2TjCEvYlEJ295c4w"),
+            Item(image: "entreaspas", name: "7fZ3TV61qH0DQ6OMPbkeNA"),
+            Item(image: "mascbiblica", name: "1PWTBv3QGUGQLupKdco7nB"),
+            Item(image: "mulherespeidosas", name: "1LmkPNmiwZ6FnGICEZHt4k"),
+            Item(image: "saude", name: "0SjOpbFH82z90QXp2MhohT"),
+            Item(image: "portugues", name: "1k0PDsvLM6y86A5XrrJzSb"),
+            Item(image: "sementes", name: "5yUFW5ptTiSLySl2EkHRh9"),
             
         ]
         completion(items)
     }
 }
+
 
 // MARK: Model token of Spotify
 

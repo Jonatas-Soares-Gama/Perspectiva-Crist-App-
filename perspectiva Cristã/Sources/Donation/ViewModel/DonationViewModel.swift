@@ -26,7 +26,6 @@ class DonationViewModel {
         screen.copyPastePixAlert.isHidden = false
         if let textToCopy = screen.copyPastePix.text {
             UIPasteboard.general.string = textToCopy
-            print("Texto copiado: \(textToCopy)")
             UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveLinear], animations: {
                 self.screen.copyPastePixAlert.frame = CGRect(
                     x: self.screen.copyPastePixAlert.frame.origin.x,
@@ -44,7 +43,6 @@ class DonationViewModel {
                     height: self.screen.copyPastePixAlert.frame.size.height)
             }, completion: nil)
         }
-        
     }
     
     func clickedEfect() {
