@@ -28,44 +28,44 @@ class RadioViewModel {
     @objc private func playButtonTapped() {
         self.isPaused = false
         self.service.requestApi { station in
-            self.airplayradio(data: station)
-            self.playMusic(data: station)
-            self.startTimer(tempoEstipulado: TimeInterval(station.nowPlaying?.remaining ?? 0) + 6)
+            self.airplayradio(station)
+            self.playMusic(station)
+            self.startTimer(TimeInterval(station.nowPlaying?.remaining ?? 0) + 6)
         }
     }
     
-    func startTimer(tempoEstipulado: TimeInterval) {
+    func startTimer(_ tempoEstipulado: TimeInterval) {
         var remainingTime = tempoEstipulado
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if remainingTime > 0 && self.isPaused {
                 remainingTime -= 1
                 print("Tempo restante: \(remainingTime)")
             } else {
-                self.timer?.invalidate()  // Interrompe o timer atual
+                self.timer?.invalidate()
                 if self.isPaused {
                     self.service.requestApi { station in
-                        self.updateViewAfterPlay(data: station)
-                        self.airplayradio(data: station)
-                        self.startNextTimer(tempoEstipulado: TimeInterval(station.nowPlaying?.duration ?? 0) + 6)
+                        self.updateViewAfterPlay(station)
+                        self.airplayradio(station)
+                        self.startNextTimer(TimeInterval(station.nowPlaying?.duration ?? 0) + 6)
                     }
                 }
             }
         }
     }
     
-    func startNextTimer(tempoEstipulado: TimeInterval) {
+    func startNextTimer(_ tempoEstipulado: TimeInterval) {
         var remainingTime = tempoEstipulado
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if remainingTime > 0 && self.isPaused {
                 remainingTime -= 1
                 print("Tempo restante (próxima reprodução): \(remainingTime)")
             } else if remainingTime == 0 || self.isPaused {
-                self.timer?.invalidate()  // Interrompe o timer atual
+                self.timer?.invalidate()
                 if self.isPaused {
                     self.service.requestApi { station in
-                        self.updateViewAfterPlay(data: station)
-                        self.airplayradio(data: station)
-                        self.startNextTimer(tempoEstipulado: TimeInterval(station.nowPlaying?.duration ?? 0) + 6)
+                        self.updateViewAfterPlay(station)
+                        self.airplayradio(station)
+                        self.startNextTimer(TimeInterval(station.nowPlaying?.duration ?? 0) + 6)
                     }
                 }
             }
@@ -81,9 +81,9 @@ class RadioViewModel {
     private func handlePlayCommand() {
         self.isPaused = false
         self.service.requestApi { station in
-            self.airplayradio(data: station)
-            self.playMusic(data: station)
-            self.startTimer(tempoEstipulado: TimeInterval(station.nowPlaying?.remaining ?? 0) + 6)
+            self.airplayradio(station)
+            self.playMusic(station)
+            self.startTimer(TimeInterval(station.nowPlaying?.remaining ?? 0) + 6)
         }
     }
     
@@ -93,12 +93,12 @@ class RadioViewModel {
             self.pauseMusic()
     }
     
-    private func playMusic(data: List) {
-        self.updateViewAfterPlay(data: data)
-        self.setupAudioPlayer(data: data)
+    private func playMusic(_ data: List) {
+        self.updateViewAfterPlay(data)
+        self.setupAudioPlayer(data)
     }
     
-    func setupAudioPlayer(data: List) {
+    func setupAudioPlayer(_ data: List) {
         guard let musicURL = URL(string: data.station?.listenURL ?? "") else { return }
         self.audioPlayer = AVPlayer(url: musicURL)
         self.audioPlayer?.play()
@@ -111,18 +111,18 @@ class RadioViewModel {
         }
     }
     
-    private func updateViewAfterPlay(data: List) {
+    private func updateViewAfterPlay(_ data: List) {
         guard let imgURL = URL(string: data.nowPlaying?.song?.art ?? "") else { return }
         self.screen?.radioImage.sd_setImage(with: imgURL) { (image, _, _, _) in
             image?.getColors { colors in
                 if let colors = colors {
-                    self.modifyViewsAfterPlay(data: data, colors: colors)
+                    self.modifyViewsAfterPlay(data, colors)
                 }
             }
         }
     }
     
-    func modifyViewsAfterPlay(data: List, colors: UIImageColors) {
+    func modifyViewsAfterPlay(_ data: List, _ colors: UIImageColors) {
         self.screen?.playButton.isHidden = true
         self.screen?.pauseButton.isHidden = false
         self.screen?.artistPlayLabel.isHidden = false
@@ -158,7 +158,7 @@ class RadioViewModel {
         self.screen?.liveImage.tintColor = .red
     }
     
-    private func airplayradio(data: List) {
+    private func airplayradio(_ data: List) {
         let _ = MPRemoteCommandCenter.shared()
         self.configureRemoteCommandCenter()
         

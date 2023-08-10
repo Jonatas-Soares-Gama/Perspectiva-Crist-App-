@@ -10,20 +10,19 @@ import WebKit
 
 class PodcastCollectionViewController: UIViewController {
     
-    private var screen: PodcastScreen?
-    private var service: Service?
+    private var screen = PodcastScreen()
+    private var service = Service()
     private var viewModel: PodcastCollectionViewViewModel?
     private var viewCell: PodcastCollectionViewCell?
     
     override func loadView() {
-        screen = PodcastScreen()
-        view = screen
+        self.view = self.screen
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initViewModel()
-        self.screen?.configCollectionViewProtocols(delegate: self, dataSource: self)
+        self.screen.configCollectionViewProtocols(delegate: self, dataSource: self)
         viewModel?.populateViewModel()
     }
 

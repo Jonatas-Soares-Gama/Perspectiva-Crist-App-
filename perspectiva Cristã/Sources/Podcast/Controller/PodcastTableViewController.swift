@@ -10,7 +10,7 @@ import SDWebImage
 import HPParallaxHeader
 
 
-class PodcastTableViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class PodcastTableViewController: UIViewController {
     
     
     private let data: Int

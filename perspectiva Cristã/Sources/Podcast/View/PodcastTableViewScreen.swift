@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PodcastTableViewScreen: BaseTableViewCell {
+class PodcastTableViewScreen: BaseView {
         
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -29,7 +29,7 @@ class PodcastTableViewScreen: BaseTableViewCell {
         addSubview(tableView)
     }
     
-    override func setupConstraints() {
+    override func setupConstrainst() {
         NSLayoutConstraint.activate([
             
             tableView.topAnchor.constraint(equalTo: topAnchor),
