@@ -18,7 +18,6 @@ class PodcastCollectionViewViewModel {
     private var service: Service?
     private var timer = Timer()
     var items: [Item] = []
-    
 
     
     init(vcp: PodcastCollectionViewController?, screen: PodcastScreen?, viewCell: PodcastCollectionViewCell?, service: Service?) {
@@ -63,6 +62,7 @@ class PodcastCollectionViewViewModel {
     func didSelectItemIndex(indexPath: IndexPath) {
         let item = items[indexPath.item]
         let vc = PodcastTableViewController(data: item.name)
+        print(item.name)
         vcp?.navigationController?.pushViewController(vc, animated: true)
     }
     

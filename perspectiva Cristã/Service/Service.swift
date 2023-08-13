@@ -10,6 +10,8 @@ import Alamofire
 
 class Service {
     
+    var statusCode = Int()
+    
     func requestApi(completion: @escaping(_ station: List) -> Void) {
         
         let baseUrl = "https://s09.w3bserver.com/api/nowplaying_static/perspectiva_crista.json"
@@ -59,7 +61,6 @@ class Service {
                     let decoder = JSONDecoder()
                     guard let tokenDecoder = try? decoder.decode(Token.self, from: data) else { return }
                     UserDefaults.standard.set(tokenDecoder.token, forKey: "someObject")
-                    //                    print(UserDefaults.standard.string(forKey: "someObject") ?? "")
                     completion(tokenDecoder)
                 }
             }

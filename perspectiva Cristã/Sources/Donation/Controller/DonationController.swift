@@ -20,7 +20,7 @@ class DonationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initViewModel()
-        viewModel?.copyGesture()
+        viewModel?.populateViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {

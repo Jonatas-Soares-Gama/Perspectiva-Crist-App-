@@ -20,6 +20,7 @@ class PodcastTableViewViewModel {
     private var items = String()
     private var dataPlaylist: [SpotifyTrack] = []
     private var imageData = String()
+    private var imageColor = UIImage()
     
     init(vcp: PodcastTableViewController?, screen: PodcastTableViewScreen?, screenTV: PodcastTableViewCell?, screenTVR: PodcastFirstRowCell?, customHeader: CustomHeaderView?, service: Service?) {
         self.vcp = vcp
@@ -96,6 +97,7 @@ class PodcastTableViewViewModel {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(backAction))
         backButton.image = UIImage(systemName: "chevron.backward")
         vcp?.navigationItem.leftBarButtonItem = backButton
+        vcp?.navigationItem.leftBarButtonItem?.tintColor = .systemBlue
     }
     
     @objc func backAction() {
@@ -106,8 +108,8 @@ class PodcastTableViewViewModel {
         callToCustomHeaderTableView()
         backButton()
         service?.requestSpotifyApi(ids: id) { episodes in
-            self.dataToTableView(data: episodes)
-            self.dataImage()
+        self.dataToTableView(data: episodes)
+        self.dataImage()
         }
     }
     
@@ -122,6 +124,7 @@ class PodcastTableViewViewModel {
     private func dataImage() {
         if let imgURL = URL(string: imageData) {
             customHeader?.episodeImage.sd_setImage(with: imgURL) { (image, _, _, _) in
+                self.imageColor = image ?? UIImage()
                 image?.getColors() { colors in
                     self.screen?.tableView.parallaxHeader.view?.backgroundColor = colors?.primary
                 }

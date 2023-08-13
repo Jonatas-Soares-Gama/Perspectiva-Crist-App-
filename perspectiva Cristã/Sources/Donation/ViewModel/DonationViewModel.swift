@@ -17,6 +17,11 @@ class DonationViewModel {
         self.screen = screen
     }
     
+    func populateViewModel() {
+        copyGesture()
+
+    }
+    
     func copyGesture() {
         screen.keyPixContainer.addTarget(self, action: #selector(viewTapped), for: .touchDown)
     }
