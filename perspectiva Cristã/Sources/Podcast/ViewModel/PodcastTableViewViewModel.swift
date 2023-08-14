@@ -141,18 +141,8 @@ class PodcastTableViewViewModel {
     }
     
     private func firstRowTitle(_ cell: PodcastFirstRowCell, with episodeData: SpotifyTrack) {
-        let string = episodeData.track.name
-        let separators = [" - ", "#", "|"]
-        var separatedString = string
-        
-        for separator in separators {
-            let components = separatedString.components(separatedBy: separator)
-            if let firstComponent = components.first {
-                separatedString = firstComponent.trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-        }
-        cell.titleLabel.text = "\(separatedString)"
-        cell.episodesCountLabel.text = "\(dataPlaylist.count) Episódios"
+        cell.titleLabel.setFormattedText(episodeData.track.name)
+        cell.episodesCountLabel.setFormattedText("\(dataPlaylist.count) Episódios")
     }
     
     private func episodeDurationCount(_ cell: PodcastTableViewCell, with episodeData: SpotifyTrack) {

@@ -27,7 +27,7 @@ class CollectionItemsMock {
             Item(image: "comoanalisaraliteratura", name: "7JxngU2TjCEvYlEJ295c4w"),
             Item(image: "entreaspas", name: "7fZ3TV61qH0DQ6OMPbkeNA"),
             Item(image: "mascbiblica", name: "1PWTBv3QGUGQLupKdco7nB"),
-            Item(image: "mulherespeidosas", name: "1LmkPNmiwZ6FnGICEZHt4k"),
+            Item(image: "mulheres", name: "1LmkPNmiwZ6FnGICEZHt4k"),
             Item(image: "saude", name: "0SjOpbFH82z90QXp2MhohT"),
             Item(image: "portugues", name: "1k0PDsvLM6y86A5XrrJzSb"),
             Item(image: "sementes", name: "5yUFW5ptTiSLySl2EkHRh9"),

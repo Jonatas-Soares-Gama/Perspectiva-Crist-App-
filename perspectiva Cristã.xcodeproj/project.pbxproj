@@ -33,11 +33,12 @@
 		B44ACEBE2A5E0F640020430B /* DonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44ACEBD2A5E0F640020430B /* DonationViewModel.swift */; };
 		B44CB98F2A5CF4A700F73413 /* DonationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB98E2A5CF4A700F73413 /* DonationController.swift */; };
 		B44CB9912A5CF4B100F73413 /* DonationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44CB9902A5CF4B000F73413 /* DonationScreen.swift */; };
+		B48F0EA92A8A874000AB0D48 /* UISeparetedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F0EA82A8A874000AB0D48 /* UISeparetedString+Extensions.swift */; };
 		B48F77122A70CEE800875DAD /* PodcastWebViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */; };
 		B4C055CD2A7244220011C7BD /* PodcastTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C055CC2A7244220011C7BD /* PodcastTableViewViewModel.swift */; };
 		B4C055CF2A72445C0011C7BD /* PodcastFirstRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C055CE2A72445C0011C7BD /* PodcastFirstRowCell.swift */; };
 		B4C055D32A725A020011C7BD /* HPParallaxHeader in Frameworks */ = {isa = PBXBuildFile; productRef = B4C055D22A725A020011C7BD /* HPParallaxHeader */; };
-		B4FA25642A7DE993004F98D8 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FA25632A7DE993004F98D8 /* UILabel+Extensions.swift */; };
+		B4FA25642A7DE993004F98D8 /* UISetLineSpacing+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FA25632A7DE993004F98D8 /* UISetLineSpacing+Extensions.swift */; };
 		F839E59529B6CBB60085AB38 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839E59429B6CBB60085AB38 /* File.swift */; };
 		F885B2AE29AAD5BB0081BF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */; };
 		F885B2B029AAD5BB0081BF71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885B2AF29AAD5BB0081BF71 /* SceneDelegate.swift */; };
@@ -71,10 +72,11 @@
 		B44ACEBD2A5E0F640020430B /* DonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewModel.swift; sourceTree = "<group>"; };
 		B44CB98E2A5CF4A700F73413 /* DonationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationController.swift; sourceTree = "<group>"; };
 		B44CB9902A5CF4B000F73413 /* DonationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationScreen.swift; sourceTree = "<group>"; };
+		B48F0EA82A8A874000AB0D48 /* UISeparetedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISeparetedString+Extensions.swift"; sourceTree = "<group>"; };
 		B48F77112A70CEE800875DAD /* PodcastWebViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastWebViewViewModel.swift; sourceTree = "<group>"; };
 		B4C055CC2A7244220011C7BD /* PodcastTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTableViewViewModel.swift; sourceTree = "<group>"; };
 		B4C055CE2A72445C0011C7BD /* PodcastFirstRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastFirstRowCell.swift; sourceTree = "<group>"; };
-		B4FA25632A7DE993004F98D8 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		B4FA25632A7DE993004F98D8 /* UISetLineSpacing+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISetLineSpacing+Extensions.swift"; sourceTree = "<group>"; };
 		F839E59429B6CBB60085AB38 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F885B2AA29AAD5BB0081BF71 /* perspectiva Cristã.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "perspectiva Cristã.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F885B2AD29AAD5BB0081BF71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -244,7 +246,8 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = Coordinator;
+			name = Coordinator;
+			path = Sources/Coordinator;
 			sourceTree = "<group>";
 		};
 		B44ACEB82A5E0F3F0020430B /* Model */ = {
@@ -318,6 +321,7 @@
 		F885B2AC29AAD5BB0081BF71 /* perspectiva Cristã */ = {
 			isa = PBXGroup;
 			children = (
+				B402D6AC2A794D2D0075721E /* Coordinator */,
 				1B24FEBD2A3D821F00E15A8B /* LaunchScreen.storyboard */,
 				1BB7BBD22A1B11C300D8C48C /* Delegates */,
 				F839E59329B6CB9F0085AB38 /* Extension-Utilities */,
@@ -334,7 +338,6 @@
 		F885B2C129AAD8F20081BF71 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B402D6AC2A794D2D0075721E /* Coordinator */,
 				1B503D1D2A4B7FB40052AC9B /* Radio */,
 				1B503D1C2A4B7FA30052AC9B /* Podcast */,
 				B44CB9892A5CF3E000F73413 /* Donation */,
@@ -347,7 +350,8 @@
 			children = (
 				F885B2B629AAD5BD0081BF71 /* Assets.xcassets */,
 				1BB7BBD32A1B11DA00D8C48C /* UIImageColors.swift */,
-				B4FA25632A7DE993004F98D8 /* UILabel+Extensions.swift */,
+				B4FA25632A7DE993004F98D8 /* UISetLineSpacing+Extensions.swift */,
+				B48F0EA82A8A874000AB0D48 /* UISeparetedString+Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -454,7 +458,7 @@
 				1B3119942A4898C9002DCEEF /* BaseTableViewCell.swift in Sources */,
 				6BEE66D529D3BC300018B4A1 /* RadioViewModel.swift in Sources */,
 				1B31199A2A489BF8002DCEEF /* PodcastTableViewController.swift in Sources */,
-				B4FA25642A7DE993004F98D8 /* UILabel+Extensions.swift in Sources */,
+				B4FA25642A7DE993004F98D8 /* UISetLineSpacing+Extensions.swift in Sources */,
 				F839E59529B6CBB60085AB38 /* File.swift in Sources */,
 				F885B2D029AD9AFC0081BF71 /* Station.swift in Sources */,
 				F885B2B029AAD5BB0081BF71 /* SceneDelegate.swift in Sources */,
@@ -472,6 +476,7 @@
 				1B5716282A3EC97F00ED24E5 /* PodcastWebviewScreen.swift in Sources */,
 				1B24FEB32A3CE1F300E15A8B /* PodcastCollectionViewScreen.swift in Sources */,
 				B44ACEBB2A5E0F510020430B /* DonationModel.swift in Sources */,
+				B48F0EA92A8A874000AB0D48 /* UISeparetedString+Extensions.swift in Sources */,
 				1BB7BBD42A1B11DA00D8C48C /* UIImageColors.swift in Sources */,
 				1B24FEB52A3CE23500E15A8B /* BaseViewCell.swift in Sources */,
 			);
